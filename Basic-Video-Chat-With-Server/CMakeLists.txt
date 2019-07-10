@@ -1,4 +1,4 @@
-PROJECT(meet_publisher_only)
+PROJECT(basic_video_chat_with_server)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -8,8 +8,6 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
 
 # Remove the commented out line below to enable OpenTok debug traces.
 # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
-
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMEET_PUBLISHER_ONLY")
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(LIBCURL REQUIRED libcurl)

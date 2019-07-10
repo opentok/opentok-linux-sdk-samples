@@ -56,13 +56,10 @@ void CredentialServiceProviderHelper::requestCredentials(const std::string& conf
     observer_->onError("Failed to perform request");
     return;
   }
-#ifdef MEET_PUBLISHER_ONLY
+#ifdef MEET_SERVER
   std::string url = credentialServiceProviderURL + std::string("/") + conference;
-#elif OPENTOKDEMO_BASIC_VIDEO_CHAT
-  std::string url = credentialServiceProviderURL + std::string("/room/") + conference + std::string("/info");
 #else
-  std::string url;
-  assert(false && "Trying to use the Credential Service Provider helper without an unknown server.");
+  std::string url = credentialServiceProviderURL + std::string("/room/") + conference;
 #endif
   curl_easy_setopt(curlHandle_, CURLOPT_URL, url.c_str());
 

@@ -1,4 +1,4 @@
-# OpenTokDemo Basic Video Chat
+# Basic Video Chat With Server
 
 The Basic Video Chat app is a very simple application meant to get a new
 developer started using the OpenTok Linux SDK.
@@ -6,8 +6,36 @@ developer started using the OpenTok Linux SDK.
 Upon building and running this sample application, you should be able to have
 two way audio and video communication using OpenTok.
 
-The new thing here is that in this sample application you are joining an
-OpenTokDemo session at https://opentokdemo.tokbox.com.
+The new thing here is that you are using a server to create sessions, generate
+tokens for those sessions, archive (or record) sessions, and download those
+archives.
+
+## Setting up the test web service
+
+The [Learning OpenTok PHP](https://github.com/opentok/learning-opentok-php) repo
+includes code for setting up a web service.
+
+1. Clone or download the repo and run its code on a PHP-enabled web server. If you do not have a
+   PHP server set up, you can use Heroku to run a remote test server -- see [Automatic deployment
+   to Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-heroku).
+
+2. After getting this web service running, edit the main.cpp file and set the value for
+   `SERVER_URL` to the URL for the web service:
+
+   * If you deployed a the test web service to a local PHP server, set this to the following:
+
+```c
+#define SERVER_URL "http://localhost:8080"
+```
+   * If you deployed this to Heroku, set this to the following:
+
+```c
+#define SERVER_URL "YOUR-HEROKU-APP-URL"
+```
+   ***Do not add the trailing slash of the URL.***
+
+The sample will load the OpenTok session ID, token, and API key from the web service. Also,
+the archiving sample will use the web service to start, stop, and view archives.
 
 ## Building and running the sample app
 
@@ -48,13 +76,13 @@ Let's build the sample application. It is a good practice to create a build
 folder. Let's create one.
 
 ```
-$ mkdir OpenTokDemo-Basic-Video-Chat/build
+$ mkdir Basic-Video-Chat-With-Server/build
 ```
 
 Next step is to create the building bits using `cmake`.
 
 ```
-$ cd OpenTokDemo-Basic-Video-Chat/build
+$ cd Basic-Video-Chat-With-Server/build
 $ CC=clang CXX=clang++ cmake ..
 ```
 
@@ -66,10 +94,10 @@ Next step is building the code using `make`.
 $ make
 ```
 
-Once it finishes the `opentokdemo_basic_video_chat` binary is ready so just run it.
+Once it finishes the `basic_video_chat_with_server` binary is ready so just run it.
 
 ```
-$ ./opentokdemo_basic_video_chat --room linuxsdk
+$ ./basic_video_chat_with_server --room linuxsdk
 ```
 
 End the sample application by CONTROL+C'ing in the console.

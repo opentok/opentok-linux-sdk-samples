@@ -23,21 +23,17 @@ session. This sample application might cover a suitable use case where we just
 want to publish a video and audio stream from a party. Examples are a video
 surveillance equipment, a smart bell, etc.
 
-### [Meet Publisher Only](Meet-Publisher-Only)
-
-A publisher-only sample application that uses https://meet.tokbox.com.
-
 ### [Basic Video Chat](Basic-Video-Chat)
 
 This sample application shows you how to connect to an OpenTok session, publish
 a stream, and subscribe to a stream.
 
-### [OpenTokDemo Basic Video Chat](OpenTokDemo-Basic-Video-Chat)
+### [Basic Video Chat With Server](Basic-Video-Chat-With-Server)
 
 This sample application shows you how to connect to an OpenTok session, publish
-a stream, and subscribe to a stream. The new thing here is that in this sample
-application you are joining an OpenTokDemo session at
-https://opentokdemo.tokbox.com.
+a stream, and subscribe to a stream. The new thing here is that you are using
+a server to create sessions, generate tokens for those sessions, archive
+(or record) sessions, and download those archives.
 
 ## Other resources
 

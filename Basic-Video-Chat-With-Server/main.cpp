@@ -5,25 +5,25 @@
 #include "conference.h"
 #include "renderer.h"
 
-#define PUBLISHER_NAME "OpenTok Linux SDK Sample - OpenTokDemo Basic Video Chat"
+#define PUBLISHER_NAME "OpenTok Linux SDK Sample - Basic Video Chat With Server"
 
-#define OPENTOKDEMO_SERVER_URL "https://opentokdemo.tokbox.com"
+#define SERVER_URL "http://localhost:8080"
 
-struct OpenTokDemoRoomInfo {
-  std::string openTokDemoRoom_;
+struct RoomInfo {
+  std::string name_;
 
   bool isValid() const {
-    return !openTokDemoRoom_.empty();
+    return !name_.empty();
   }
 };
 
 class Arguments {
  public:
-  static bool parse(int argc, char* argv[], OpenTokDemoRoomInfo* info) {
+  static bool parse(int argc, char* argv[], RoomInfo* info) {
     for (int i = 1; (i + 1) < argc; i = i + 2) {
       std::string key(argv[i]);
       std::string param(argv[i + 1]);
-      if ((key == "-r") || (key == "--room")) info->openTokDemoRoom_ = param;
+      if ((key == "-r") || (key == "--room")) info->name_ = param;
     }
     return info->isValid();
   }
@@ -52,8 +52,8 @@ struct MyConferenceObserver: public ConferenceObserver {
 };
 
 int main(int argc, char* argv[]) {
-  OpenTokDemoRoomInfo openTokDemoRoomInfo;
-  if (!Arguments::parse(argc, argv, &openTokDemoRoomInfo)) {
+  RoomInfo roomInfo;
+  if (!Arguments::parse(argc, argv, &roomInfo)) {
     Arguments::printUsage();
     return EXIT_FAILURE;
   }
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
   std::shared_ptr<MyConferenceObserver> observer = std::make_shared<MyConferenceObserver>();
   std::shared_ptr<RendererManager> rendererManager = std::make_shared<RendererManager>();
   std::unique_ptr<Conference> conference(new Conference(std::string(PUBLISHER_NAME), observer, rendererManager));
-  conference->join(openTokDemoRoomInfo.openTokDemoRoom_, std::string(OPENTOKDEMO_SERVER_URL));
+  conference->join(roomInfo.name_, std::string(SERVER_URL));
 
   rendererManager->runEventLoop();
 
