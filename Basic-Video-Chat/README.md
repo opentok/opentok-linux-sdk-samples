@@ -1,7 +1,7 @@
 # Basic Video Chat
 
-The Basic Video Chat app is a very simple application meant to get a new
-developer started using the OpenTok Linux SDK.
+The Basic Video Chat application shows how to connect to an OpenTok session,
+publish a stream, and subscribe to a stream using the OpenTok Linux SDK.
 
 Upon building and running this sample application, you should be able to have
 two way audio and video communication using OpenTok.
@@ -44,8 +44,8 @@ dependencies you have to install too. These are:
   - libpulse-dev
   - libsdl2-dev
 
-Let's build the sample application. It is a good practice to create a build
-folder. Let's create one.
+Let's build the sample application. Since it's good practice to create a build
+folder, let's go ahead and create it in the project directory.
 
 ```
 $ mkdir Basic-Video-Chat/build
@@ -60,16 +60,16 @@ $ CC=clang CXX=clang++ cmake ..
 
 Note we are using `clang/clang++` compilers here.
 
-Next step is building the code using `make`.
+We will use `make` to build the code.
 
 ```
 $ make
 ```
 
-Once it finishes the `basic_video_chat` binary is ready so just run it.
+Run the `basic_video_chat` binary once it's built.
 
 ```
 $ ./basic_video_chat
 ```
 
-End the sample application by CONTROL+C'ing in the console.
+You can end the sample application by using the Control + C combination in the console.

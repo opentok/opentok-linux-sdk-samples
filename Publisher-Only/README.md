@@ -45,8 +45,8 @@ dependencies you have to install too. These are:
   - libpulse-dev
   - libsdl2-dev
 
-Let's build the sample application. It is a good practice to create a build
-folder. Let's create one.
+Let's build the sample application. Since it's good practice to create a build
+folder, let's go ahead and create it in the project directory.
 
 ```
 $ mkdir Publisher-Only/build
@@ -61,20 +61,19 @@ $ CC=clang CXX=clang++ cmake ..
 
 Note we are using `clang/clang++` compilers here.
 
-Next step is building the code using `make`.
+We will use `make` to build the code.
 
 ```
 $ make
 ```
 
-Once it finishes the `publisher_only` binary is ready so just run it.
+Run the `publisher_only` binary once it's built.
 
 ```
 $ ./publisher_only
 ```
 
-End the sample application by sending a SIGBREAK (21) signal to the sample
-application in the console.
+You can end the sample application by sending a SIGBREAK (21) signal in the console.
 
 ```
 $ kill -21 <publisher_only PID>
