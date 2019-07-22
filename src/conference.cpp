@@ -130,7 +130,7 @@ Conference::Conference(const std::string& host, const int port, const std::strin
   port_(port),
   name_(name),
   observer_(observer),
-  credentialServiceProviderHelper_(new CredentialServiceProviderHelper(this)){
+  credentialServiceProviderHelper_(std::unique_ptr<CredentialServiceProviderHelper>(new CredentialServiceProviderHelper(this))) {
 
   init();
 }
@@ -140,7 +140,7 @@ Conference::Conference(const std::string& name, const std::shared_ptr<Conference
   port_(OPENTOK_PRODUCTION_SERVER_PORT_NUMBER),
   name_(name),
   observer_(observer),
-  credentialServiceProviderHelper_(new CredentialServiceProviderHelper(this)) {
+  credentialServiceProviderHelper_(std::unique_ptr<CredentialServiceProviderHelper>(new CredentialServiceProviderHelper(this))) {
 
   init();
 }
@@ -150,7 +150,7 @@ Conference::Conference(const std::string& name, const std::shared_ptr<Conference
   port_(OPENTOK_PRODUCTION_SERVER_PORT_NUMBER),
   name_(name),
   observer_(observer),
-  credentialServiceProviderHelper_(new CredentialServiceProviderHelper(this)),
+  credentialServiceProviderHelper_(std::unique_ptr<CredentialServiceProviderHelper>(new CredentialServiceProviderHelper(this))),
   rendererManager_(rendererManager) {
 
   init();
