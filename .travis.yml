@@ -1,0 +1,13 @@
+language: cpp
+dist: xenial
+compiler:
+- clang++
+os:
+- linux
+before_install:
+- if [ $TRAVIS_OS_NAME == linux ]; then ./scripts/dependencies.sh; fi
+script:
+- if [ $TRAVIS_OS_NAME == linux ]; then ./scripts/build.sh; fi
+branches:
+  only:
+  - master
