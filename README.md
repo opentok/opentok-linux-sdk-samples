@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/opentok/opentok-linux-sdk-samples.svg?branch=master)](https://travis-ci.org/opentok/opentok-linux-sdk-samples)
+
 # OpenTok Linux SDK Samples
 
 This repository is meant to provide some examples for you to better understand
