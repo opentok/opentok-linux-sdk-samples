@@ -25,7 +25,7 @@ void onOpenTokSubscriberRenderFrameCallback(otc_subscriber *subscriber, void *us
 void onOpenTokSubscriberErrorCallback(otc_subscriber *subscriber,
                                       void *user_data,
                                       const char* error_string,
-                                      enum otc_subscriber_error error_code) {
+                                      enum otc_subscriber_error_code error_code) {
   Conference *conference = reinterpret_cast<Conference *>(user_data);
   if (conference == nullptr) {
     return;
@@ -61,7 +61,7 @@ void onOpenTokPublisherRenderFrameCallback(otc_publisher *publisher,
 void onOpenTokPublisherErrorCallback(otc_publisher *publisher,
                                      void *user_data,
                                      const char* error_string,
-                                     enum otc_publisher_error error_code) {
+                                     enum otc_publisher_error_code error_code) {
   Conference *conference = reinterpret_cast<Conference *>(user_data);
   if (conference == nullptr) {
     return;
@@ -87,7 +87,7 @@ void onOpenTokSessionStreamReceivedCallback(otc_session *session, void *user_dat
     return;
   }
 
-  struct otc_subscriber_cb subscriber_cb = {0};
+  struct otc_subscriber_callbacks subscriber_cb = {0};
   subscriber_cb.user_data = conference;
   subscriber_cb.on_render_frame = onOpenTokSubscriberRenderFrameCallback;
   subscriber_cb.on_error = onOpenTokSubscriberErrorCallback;
@@ -115,7 +115,7 @@ void onOpenTokSessionStreamDroppedCallback(otc_session *session, void *user_data
 }
 
 void onOpenTokSessionErrorCallback(otc_session *session, void *user_data, const char* error_string,
-                                   enum otc_session_error error) {
+                                   enum otc_session_error_code error) {
   Conference *conference = reinterpret_cast<Conference *>(user_data);
   if (conference == nullptr) {
     return;
@@ -281,7 +281,7 @@ void Conference::init() {
 }
 
 void Conference::joinImpl(const std::string& apiKey, const std::string& sessionId, const std::string& token) {
-  struct otc_session_cb session_callbacks = {0};
+  struct otc_session_callbacks session_callbacks = {0};
   session_callbacks.user_data = this;
   session_callbacks.on_connected = onOpenTokSessionConnectedCallback;
   session_callbacks.on_stream_received = onOpenTokSessionStreamReceivedCallback;
@@ -304,7 +304,7 @@ void Conference::joinImpl(const std::string& apiKey, const std::string& sessionI
                               OTC_TRUE,
                               token.c_str());
 
-  struct otc_publisher_cb publisher_cb = {0};
+  struct otc_publisher_callbacks publisher_cb = {0};
   publisher_cb.user_data = this;
   publisher_cb.on_stream_created = onOpenTokPublisherStreamCreatedCallback;
   publisher_cb.on_render_frame = onOpenTokPublisherRenderFrameCallback;
