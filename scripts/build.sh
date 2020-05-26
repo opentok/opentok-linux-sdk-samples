@@ -4,7 +4,7 @@ unset CDPATH
 
 SCRIPT_PATH=${SCRIPT_PATH:-$(cd `dirname ${BASH_SOURCE[0]}`; pwd)}
 
-SAMPLES=(Publisher-Only Basic-Video-Chat Basic-Video-Chat-With-Server)
+SAMPLES=(Basic-Video-Chat Publisher-Only Signaling Simple-Multiparty Custom-Audio-Device Custom-Video-Capturer)
 for sample in ${SAMPLES[@]}; do
   rm -rf ${SCRIPT_PATH}/../${sample}/build
   mkdir ${SCRIPT_PATH}/../${sample}/build
@@ -25,25 +25,5 @@ for sample in ${SAMPLES[@]}; do
   fi
   popd
 done
-
-rm -rf ${SCRIPT_PATH}/../wip/build
-mkdir ${SCRIPT_PATH}/../wip/build
-pushd ${SCRIPT_PATH}/../wip/build
-
-CC=clang CXX=clang++ cmake ..
-ret=$?
-if [ ${ret} -ne 0 ]; then
-  echo "Cannot build ${sample} correctly. 'build.sh' script failed. Abort."
-  popd
-  exit 255
-fi
-make
-ret=$?
-if [ ${ret} -ne 0 ]; then
-  echo "Cannot build ${sample} correctly. 'build.sh' script failed. Abort."
-  popd
-  exit 255
-fi
-popd
 
 exit 0

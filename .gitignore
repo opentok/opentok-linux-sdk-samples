@@ -1,5 +1,7 @@
-Publisher-Only/build
 Basic-Video-Chat/build
-Basic-Video-Chat-With-Server/build
-assets/package
+Publisher-Only/build
+Custom-Audio-Device/build
+Custom-Video-Capturer/build
+Signaling/build
+Simple-Multiparty/build
 *~

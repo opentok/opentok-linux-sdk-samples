@@ -7,10 +7,6 @@ sudo apt-get install -y build-essential \
                         libc++-dev \
                         libc++abi-dev \
                         pkg-config \
-                        libuv1-dev \
-                        libunwind-dev \
-                        libcurl4-openssl-dev \
-                        libjansson-dev \
                         libasound2 \
                         libpulse-dev \
                         libsdl2-dev

@@ -20,6 +20,11 @@ information.
 
 ## What's inside
 
+### [Basic Video Chat](Basic-Video-Chat)
+
+This sample application shows you how to connect to an OpenTok session, publish
+a stream, and subscribe to a stream.
+
 ### [Publisher Only](Publisher-Only)
 
 This sample application shows how to publish a video and audio stream to a
@@ -27,17 +32,21 @@ session. This sample application might cover a suitable use case where we just
 want to publish a video and audio stream from a party. Examples are a video
 surveillance equipment, a smart bell, etc.
 
-### [Basic Video Chat](Basic-Video-Chat)
+### [Signaling](Signaling)
 
-This sample application shows you how to connect to an OpenTok session, publish
-a stream, and subscribe to a stream.
+This sample application shows ...
 
-### [Basic Video Chat With Server](Basic-Video-Chat-With-Server)
+### [Simple Multiparty](Simple-Multiparty)
 
-This sample application shows you how to connect to an OpenTok session, publish
-a stream, and subscribe to a stream. The new thing here is that you are using
-a server to create sessions, generate tokens for those sessions, archive
-(or record) sessions, and download those archives.
+This sample application shows ...
+
+### [Custom Audio Device](Custom-Audio-Device)
+
+This sample application shows ...
+
+### [Custom Video Capturer](Custom-Video-Capturer)
+
+This sample application shows ...
 
 ## Development and Contributing
 

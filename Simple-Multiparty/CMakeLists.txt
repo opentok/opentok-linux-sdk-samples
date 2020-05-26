@@ -1,4 +1,4 @@
-PROJECT(basic_video_chat)
+PROJECT(simple_multiparty)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
