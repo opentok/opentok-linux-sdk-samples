@@ -21,14 +21,14 @@ static void on_session_connected(otc_session *session, void *user_data) {
 }
 
 static void on_session_connection_created(otc_session *session,
-                                          const otc_connection *connection,
-                                          void *user_data) {
+                                          void *user_data,
+                                          const otc_connection *connection) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 }
 
 static void on_session_connection_dropped(otc_session *session,
-                                          const otc_connection *connection,
-                                          void *user_data) {
+                                          void *user_data,
+                                          const otc_connection *connection) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 }
 
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
     std::cout << "Could not init OpenTok library" << std::endl;
     return EXIT_FAILURE;
   }
-  otc_log_set_logger_func(on_otc_log_message);
+  otc_log_set_logger_callback(on_otc_log_message);
   otc_log_enable(OTC_LOG_LEVEL_INFO);
 
   struct otc_session_callbacks session_callbacks = {0};

@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
     std::cout << "Could not init OpenTok library" << std::endl;
     return EXIT_FAILURE;
   }
-  otc_log_set_logger_func(on_otc_log_message);
+  otc_log_set_logger_callback(on_otc_log_message);
   otc_log_enable(OTC_LOG_LEVEL_INFO);
 
   struct otc_session_callbacks session_callbacks = {0};

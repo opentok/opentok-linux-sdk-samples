@@ -91,14 +91,14 @@ static void on_session_connected(otc_session *session, void *user_data) {
 }
 
 static void on_session_connection_created(otc_session *session,
-                                          const otc_connection *connection,
-                                          void *user_data) {
+                                          void *user_data,
+                                          const otc_connection *connection) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 }
 
 static void on_session_connection_dropped(otc_session *session,
-                                          const otc_connection *connection,
-                                          void *user_data) {
+                                          void *user_data,
+                                          const otc_connection *connection) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 }
 
@@ -151,7 +151,7 @@ static void on_publisher_stream_destroyed(otc_publisher *publisher,
 static void on_publisher_error(otc_publisher *publisher,
                                void *user_data,
                                const char* error_string,
-                               enum otc_publisher_error error_code) {
+                               enum otc_publisher_error_code error_code) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
   std::cout << "Publisher error. Error code: " << error_string << std::endl;
 }
@@ -165,7 +165,7 @@ int main(int argc, char** argv) {
     std::cout << "Could not init OpenTok library" << std::endl;
     return EXIT_FAILURE;
   }
-  otc_log_set_logger_func(on_otc_log_message);
+  otc_log_set_logger_callback(on_otc_log_message);
   otc_log_enable(OTC_LOG_LEVEL_INFO);
 
   struct audio_device *device = (struct audio_device *)malloc(sizeof(struct audio_device));
