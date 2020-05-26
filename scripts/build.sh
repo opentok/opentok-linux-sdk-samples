@@ -26,4 +26,24 @@ for sample in ${SAMPLES[@]}; do
   popd
 done
 
+rm -rf ${SCRIPT_PATH}/../wip/build
+mkdir ${SCRIPT_PATH}/../wip/build
+pushd ${SCRIPT_PATH}/../wip/build
+
+CC=clang CXX=clang++ cmake ..
+ret=$?
+if [ ${ret} -ne 0 ]; then
+  echo "Cannot build ${sample} correctly. 'build.sh' script failed. Abort."
+  popd
+  exit 255
+fi
+make
+ret=$?
+if [ ${ret} -ne 0 ]; then
+  echo "Cannot build ${sample} correctly. 'build.sh' script failed. Abort."
+  popd
+  exit 255
+fi
+popd
+
 exit 0
