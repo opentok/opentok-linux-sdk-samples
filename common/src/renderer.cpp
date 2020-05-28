@@ -113,7 +113,7 @@ void Renderer::onFrame(otc_video_frame* frame) {
   }
   SDL_Surface* surface_ =  SDL_GetWindowSurface(window_);
 
-  auto pixels = otc_video_frame_get_plane(frame, 0);
+  auto pixels = otc_video_frame_get_plane_binary_data(frame, static_cast<enum otc_video_frame_plane>(0));
   SDL_Surface* sdl_frame = SDL_CreateRGBSurfaceFrom(
       const_cast<unsigned char*>(pixels),
       otc_video_frame_get_width(frame),

@@ -46,9 +46,9 @@ otc_bool video_capturer_stop(const otc_video_capturer *capturer, void *user_data
   return OTC_TRUE;
 }
 
-otc_bool video_capturer_capture_settings(const otc_video_capturer *capturer,
-                                         void *user_data,
-                                         struct otc_video_capturer_settings *settings) {
+otc_bool get_video_capturer_capture_settings(const otc_video_capturer *capturer,
+                                             void *user_data,
+                                             struct otc_video_capturer_settings *settings) {
   return OTC_TRUE;
 }
 
@@ -168,7 +168,7 @@ int main(int argc, char** argv) {
   video_capturer->video_capturer_callbacks.destroy = video_capturer_destroy;
   video_capturer->video_capturer_callbacks.start = video_capturer_start;
   video_capturer->video_capturer_callbacks.stop = video_capturer_stop;
-  video_capturer->video_capturer_callbacks.capture_settings = video_capturer_capture_settings;
+  video_capturer->video_capturer_callbacks.get_capture_settings = get_video_capturer_capture_settings;
   video_capturer->width = 1280;
   video_capturer->height = 720;
   video_capturer->buffer = (uint8_t *)malloc(video_capturer->width * video_capturer->height * 4);
