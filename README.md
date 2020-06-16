@@ -23,7 +23,8 @@ information.
 ### [Basic Video Chat](Basic-Video-Chat)
 
 This sample application shows you how to connect to an OpenTok session, publish
-a stream, and subscribe to a stream.
+a stream, and subscribe to a stream. If you're just getting started with OpenTok,
+this is where you should start.
 
 ### [Publisher Only](Publisher-Only)
 
@@ -34,19 +35,25 @@ surveillance equipment, a smart bell, etc.
 
 ### [Signaling](Signaling)
 
-This sample application shows ...
+This sample application shows how to use the signaling API.
 
 ### [Simple Multiparty](Simple-Multiparty)
 
-This sample application shows ...
+This sample application shows how to implement a simple video call application with several clients.
 
 ### [Custom Audio Device](Custom-Audio-Device)
 
-This sample application shows ...
+This sample application shows how to use the audio device API to implement a
+custom audio capturer. Just like the custom video driver, most applications wil
+be fine using the default. If you want to add custom audio manipulation, look
+here.
 
 ### [Custom Video Capturer](Custom-Video-Capturer)
 
-This sample application shows ...
+This sample application shows how to use both a custom video capturer and
+redender. While most applications will work fine with the default capturer (and
+therefore won't require an understanding of how the custom video driver work),
+if you need to add custom effects, then this is where you should start.
 
 ## Development and Contributing
 

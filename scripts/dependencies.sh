@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "deb https://dl.bintray.com/tokbox/debian buster main" | sudo tee -a /etc/apt/sources.list
+wget -O- -q https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install -y build-essential \
                         cmake \
@@ -9,5 +11,5 @@ sudo apt-get install -y build-essential \
                         pkg-config \
                         libasound2 \
                         libpulse-dev \
-                        libsdl2-dev
-echo "Install Debian packages from https://lumbergh.tokbox.com/artifacts/trunk/opentok-linux-sdk until we have our own Debian repository."
+                        libsdl2-dev \
+                        libopentok-dev
