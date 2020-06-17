@@ -16,10 +16,6 @@ static void on_session_connected(otc_session *session, void *user_data) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 
   g_is_connected = true;
-  if (session == nullptr) {
-    return;
-  }
-  otc_session_send_signal(session, "type", "signal");
 }
 
 static void on_session_connection_created(otc_session *session,
@@ -46,6 +42,12 @@ static void on_session_signal_received(otc_session *session,
                                        const char *signal,
                                        const otc_connection *connection) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
+
+  if (session == nullptr) {
+    return;
+  }
+  // It echoes back whatever is sent to it.
+  otc_session_send_signal_to_connection(session, type, signal, connection);
 }
 
 static void on_session_stream_dropped(otc_session *session,
@@ -83,6 +85,7 @@ int main(int argc, char** argv) {
   session_callbacks.on_connection_created = on_session_connection_created;
   session_callbacks.on_connection_dropped = on_session_connection_dropped;
   session_callbacks.on_stream_received = on_session_stream_received;
+  // This sample listens for signals.
   session_callbacks.on_signal_received = on_session_signal_received;
   session_callbacks.on_stream_dropped = on_session_stream_dropped;
   session_callbacks.on_disconnected = on_session_disconnected;

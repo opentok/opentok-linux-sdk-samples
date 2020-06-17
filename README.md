@@ -36,7 +36,8 @@ surveillance equipment, a smart bell, etc.
 
 ### [Signaling](Signaling)
 
-This sample application shows how to use the signaling API.
+This sample application shows how to use the signaling API. This sample listens
+for signals and echoes back whatever is sent to it.
 
 ### [Custom Audio Device](Custom-Audio-Device)
 
