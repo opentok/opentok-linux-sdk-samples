@@ -4,7 +4,7 @@ unset CDPATH
 
 SCRIPT_PATH=${SCRIPT_PATH:-$(cd `dirname ${BASH_SOURCE[0]}`; pwd)}
 
-SAMPLES=(Basic-Video-Chat Publisher-Only Signaling Simple-Multiparty Custom-Audio-Device Custom-Video-Capturer)
+SAMPLES=(Basic-Video-Chat Publisher-Only Signaling Custom-Audio-Device Custom-Video-Capturer)
 for sample in ${SAMPLES[@]}; do
   rm -rf ${SCRIPT_PATH}/../${sample}/build
   mkdir ${SCRIPT_PATH}/../${sample}/build
