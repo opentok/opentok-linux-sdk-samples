@@ -1,5 +1,6 @@
 #include <opentok.h>
 
+#include <atomic>
 #include <cstdint>
 #include <cstdlib>
 #include <iostream>
@@ -11,9 +12,9 @@
 #define SESSION_ID ""
 #define TOKEN ""
 
-static otc_bool g_is_connected = OTC_FALSE;
+static std::atomic<bool> g_is_connected(false);
 static otc_publisher *g_publisher = nullptr;
-static otc_bool g_is_publishing = OTC_FALSE;
+static std::atomic<bool> g_is_publishing(false);
 
 struct custom_video_capturer {
   const otc_video_capturer *video_capturer;
@@ -55,11 +56,11 @@ otc_bool get_video_capturer_capture_settings(const otc_video_capturer *capturer,
 static void on_session_connected(otc_session *session, void *user_data) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 
-  g_is_connected = OTC_TRUE;
+  g_is_connected = true;
 
   if ((session != nullptr) && (g_publisher != nullptr)) {
     if (otc_session_publish(session, g_publisher) == OTC_SUCCESS) {
-      g_is_publishing = OTC_TRUE;
+      g_is_publishing = true;
       return;
     }
     std::cout << "Could not publish successfully" << std::endl;
@@ -198,18 +199,16 @@ int main(int argc, char** argv) {
 
   renderer_manager.destroyRenderer(g_publisher);
 
-  if ((session != nullptr) && (g_publisher != nullptr) && (g_is_publishing == OTC_TRUE)) {
+  if ((session != nullptr) && (g_publisher != nullptr) && g_is_publishing.load()) {
     otc_session_unpublish(session, g_publisher);
-    g_is_publishing = OTC_FALSE;
   }
   
   if (g_publisher != nullptr) {
     otc_publisher_delete(g_publisher);
   }
 
-  if ((session != nullptr) && (g_is_connected == OTC_TRUE)) {
+  if ((session != nullptr) && g_is_connected.load()) {
     otc_session_disconnect(session);
-    g_is_connected = OTC_FALSE;
   }
 
   if (session != nullptr) {

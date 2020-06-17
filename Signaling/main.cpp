@@ -1,5 +1,6 @@
 #include <opentok.h>
 
+#include <atomic>
 #include <cstdlib>
 #include <iostream>
 
@@ -9,11 +10,12 @@
 #define SESSION_ID ""
 #define TOKEN ""
 
-static otc_bool g_is_connected = OTC_FALSE;
+static std::atomic<bool> g_is_connected(false);
 
 static void on_session_connected(otc_session *session, void *user_data) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 
+  g_is_connected = true;
   if (session == nullptr) {
     return;
   }
@@ -100,9 +102,8 @@ int main(int argc, char** argv) {
   RendererManager renderer_manager;
   renderer_manager.runEventLoop();
 
-  if ((session != nullptr) && (g_is_connected == OTC_TRUE)) {
+  if ((session != nullptr) && g_is_connected.load()) {
     otc_session_disconnect(session);
-    g_is_connected = OTC_FALSE;
   }
 
   if (session != nullptr) {

@@ -1,10 +1,12 @@
 #include <opentok.h>
 
 #include <algorithm>
+#include <atomic>
 #include <cstdlib>
 #include <iterator>
 #include <iostream>
 #include <map>
+#include <mutex>
 #include <string>
 
 #include "renderer.h"
@@ -13,10 +15,11 @@
 #define SESSION_ID ""
 #define TOKEN ""
 
-static otc_bool g_is_connected = OTC_FALSE;
+static std::atomic<bool> g_is_connected(false);
 static otc_publisher *g_publisher = nullptr;
-static otc_bool g_is_publishing = OTC_FALSE;
+static std::atomic<bool> g_is_publishing(false);
 static std::map<std::string, void*> g_subscriber_map;
+static std::mutex g_subscriber_map_mutex;
 
 static void on_subscriber_connected(otc_subscriber *subscriber,
                                     void *user_data,
@@ -45,11 +48,11 @@ static void on_subscriber_error(otc_subscriber* subscriber,
 static void on_session_connected(otc_session *session, void *user_data) {
   std::cout << __FUNCTION__ << " callback function" << std::endl;
 
-  g_is_connected = OTC_TRUE;
+  g_is_connected = true;
 
   if ((session != nullptr) && (g_publisher != nullptr)) {
     if (otc_session_publish(session, g_publisher) == OTC_SUCCESS) {
-      g_is_publishing = OTC_TRUE;
+      g_is_publishing = true;
       return;
     }
     std::cout << "Could not publish successfully" << std::endl;
@@ -91,6 +94,7 @@ static void on_session_stream_received(otc_session *session,
   }
   render_manager->createRenderer(subscriber);
   if (otc_session_subscribe(session, subscriber) == OTC_SUCCESS) {
+    const std::lock_guard<std::mutex> lock(g_subscriber_map_mutex);
     g_subscriber_map[std::string(otc_stream_get_id(stream))] = subscriber;
     return;
   }
@@ -111,6 +115,7 @@ static void on_session_stream_dropped(otc_session *session,
     render_manager->destroyRenderer(subscriber);
   }
   otc_subscriber_delete(subscriber);
+  const std::lock_guard<std::mutex> lock(g_subscriber_map_mutex);
   g_subscriber_map[std::string(otc_stream_get_id(stream))] = nullptr;
   subscriber = nullptr;
 }
@@ -211,6 +216,7 @@ int main(int argc, char** argv) {
   renderer_manager.runEventLoop();
 
   if (session != nullptr) {
+    const std::lock_guard<std::mutex> lock(g_subscriber_map_mutex);
     std::for_each(g_subscriber_map.begin(),
                   g_subscriber_map.end(),
                   [&renderer_manager, session](std::pair<std::string, void*> element) {
@@ -227,9 +233,8 @@ int main(int argc, char** argv) {
 
   renderer_manager.destroyRenderer(g_publisher);
 
-  if ((session != nullptr) && (g_publisher != nullptr) && (g_is_publishing == OTC_TRUE)) {
+  if ((session != nullptr) && (g_publisher != nullptr) && g_is_publishing.load()) {
     otc_session_unpublish(session, g_publisher);
-    g_is_publishing = OTC_FALSE;
   }
 
   if (g_publisher != nullptr) {
@@ -237,9 +242,8 @@ int main(int argc, char** argv) {
     g_publisher = nullptr;
   }
 
-  if ((session != nullptr) && (g_is_connected == OTC_TRUE)) {
+  if ((session != nullptr) && g_is_connected.load()) {
     otc_session_disconnect(session);
-    g_is_connected = OTC_FALSE;
   }
 
   if (session != nullptr) {
