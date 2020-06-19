@@ -9,7 +9,7 @@ for sample in ${SAMPLES[@]}; do
   rm -rf ${SCRIPT_PATH}/../${sample}/build
   mkdir ${SCRIPT_PATH}/../${sample}/build
   pushd ${SCRIPT_PATH}/../${sample}/build
-  CC=clang CXX=clang++ cmake ..
+  CC=clang CXX=clang++ cmake -DCI=ON ..
   ret=$?
   if [ ${ret} -ne 0 ]; then
     echo "Cannot build ${sample} correctly. 'build.sh' script failed. Abort."

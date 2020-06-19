@@ -24,7 +24,7 @@ information.
 
 This sample application shows you how to connect to an OpenTok session, publish
 a stream, and subscribe to a stream. It implements a simple video call
-application with several clients.If you're just getting started with OpenTok,
+application with several clients. If you're just getting started with OpenTok,
 this is where you should start.
 
 ### [Publisher Only](Publisher-Only)
