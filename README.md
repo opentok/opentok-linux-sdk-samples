@@ -36,6 +36,11 @@ surveillance equipment, a smart bell, etc.
 
 ### [Signaling](Signaling)
 
+This sample application shows how to use the Configurable TURN servers API. This
+sample uses user provided TURN servers for the session.
+
+### [Configurable TURN Servers](Configurable-TURN-Servers)
+
 This sample application shows how to use the signaling API. This sample listens
 for signals and echoes back whatever is sent to it.
 
