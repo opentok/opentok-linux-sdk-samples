@@ -89,18 +89,18 @@ int main(int argc, char** argv) {
   memset(ice_config.ice_user[0], '\0',  MAX_CHAR_ARRAY_LENGHT);
   strcpy(ice_config.ice_user[0], "<ICE_SERVER_USER>");
   ice_config.ice_credential = (char **)malloc(sizeof(char *) * 1);
-  ice_config.ice_credential[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGHT);  
+  ice_config.ice_credential[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGHT);
   memset(ice_config.ice_credential[0], '\0',  MAX_CHAR_ARRAY_LENGHT);
   strcpy(ice_config.ice_credential[0], "<ICE_SERVER_CREDENTIAL>");
   ice_config.force_turn = OTC_TRUE;
   ice_config.use_custom_turn_only = OTC_FALSE;
-  
+
   otc_session_settings *session_settings = otc_session_settings_new();
   if (session_settings != nullptr) {
     otc_session_settings_set_custom_ice_config(session_settings,
                                                &ice_config);
   }
-  
+
   otc_session *session = nullptr;
 
   session = otc_session_new_with_settings(API_KEY,
@@ -142,7 +142,7 @@ int main(int argc, char** argv) {
     }
     free(ice_config.ice_credential);
   }
-  
+
   if (session_settings != nullptr) {
     otc_session_settings_delete(session_settings);
   }
