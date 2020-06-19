@@ -19,37 +19,94 @@ static std::atomic<bool> g_is_publishing(false);
 struct custom_video_capturer {
   const otc_video_capturer *video_capturer;
   struct otc_video_capturer_callbacks video_capturer_callbacks;
-  std::atomic<bool> is_alive;
-  otk_thread_t capturer_thread;
   int width;
   int height;
-  uint8_t *buffer;
+  otk_thread_t capturer_thread;
+  std::atomic<bool> capturer_thread_exit;
 };
 
-otc_bool video_capturer_init(const otc_video_capturer *capturer, void *user_data) {
+static int generate_random_integer() {
+  srand(time(nullptr));
+  return rand();
+}
+
+static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
+  struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(arg);
+  if (video_capturer == nullptr) {
+    otk_thread_func_return_value;
+  }
+
+  uint8_t *buffer = (uint8_t *)malloc(sizeof(uint8_t) * video_capturer->width * video_capturer->height * 4);
+
+  while(video_capturer->capturer_thread_exit.load() == false) {
+    memset(buffer, generate_random_integer() & 0xFF, video_capturer->width * video_capturer->height * 4);
+    otc_video_frame *otc_frame = otc_video_frame_new(OTC_VIDEO_FRAME_FORMAT_ARGB32, video_capturer->width, video_capturer->height, buffer);
+    otc_video_capturer_provide_frame(video_capturer->video_capturer, 0, otc_frame);
+    if (otc_frame != nullptr) {
+      otc_video_frame_delete(otc_frame);
+    }
+    usleep(1000 / 30 * 1000);
+  }
+
+  if (buffer != nullptr) {
+    free(buffer);
+  }
+
+  otk_thread_func_return_value;
+}
+
+static otc_bool video_capturer_init(const otc_video_capturer *capturer, void *user_data) {
   struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(user_data);
   if (video_capturer == nullptr) {
     return OTC_FALSE;
   }
+
   video_capturer->video_capturer = capturer;
+
   return OTC_TRUE;
 }
 
-otc_bool video_capturer_destroy(const otc_video_capturer *capturer, void *user_data) {
+static otc_bool video_capturer_destroy(const otc_video_capturer *capturer, void *user_data) {
+  struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(user_data);
+  if (video_capturer == nullptr) {
+    return OTC_FALSE;
+  }
+
+  video_capturer->capturer_thread_exit = true;
+  otk_thread_join(video_capturer->capturer_thread);
+
   return OTC_TRUE;
 }
 
-otc_bool video_capturer_start(const otc_video_capturer *capturer, void *user_data) {
+static otc_bool video_capturer_start(const otc_video_capturer *capturer, void *user_data) {
+  struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(user_data);
+  if (video_capturer == nullptr) {
+    return OTC_FALSE;
+  }
+
+  video_capturer->capturer_thread_exit = false;
+  if (otk_thread_create(&(video_capturer->capturer_thread), &capturer_thread_start_function, (void *)video_capturer) != 0) {
+    return OTC_FALSE;
+  }
+
   return OTC_TRUE;
 }
 
-otc_bool video_capturer_stop(const otc_video_capturer *capturer, void *user_data) {
-  return OTC_TRUE;
-}
+static otc_bool get_video_capturer_capture_settings(const otc_video_capturer *capturer,
+                                                    void *user_data,
+                                                    struct otc_video_capturer_settings *settings) {
+  struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(user_data);
+  if (video_capturer == nullptr) {
+    return OTC_FALSE;
+  }
 
-otc_bool get_video_capturer_capture_settings(const otc_video_capturer *capturer,
-                                             void *user_data,
-                                             struct otc_video_capturer_settings *settings) {
+  settings->format = OTC_VIDEO_FRAME_FORMAT_ARGB32;
+  settings->width = video_capturer->width;
+  settings->height = video_capturer->height;
+  settings->fps = 30;
+  settings->mirror_on_local_render = OTC_FALSE;
+  settings->expected_delay = 0;
+
   return OTC_TRUE;
 }
 
@@ -168,12 +225,9 @@ int main(int argc, char** argv) {
   video_capturer->video_capturer_callbacks.init = video_capturer_init;
   video_capturer->video_capturer_callbacks.destroy = video_capturer_destroy;
   video_capturer->video_capturer_callbacks.start = video_capturer_start;
-  video_capturer->video_capturer_callbacks.stop = video_capturer_stop;
   video_capturer->video_capturer_callbacks.get_capture_settings = get_video_capturer_capture_settings;
   video_capturer->width = 1280;
   video_capturer->height = 720;
-  video_capturer->buffer = (uint8_t *)malloc(video_capturer->width * video_capturer->height * 4);
-  video_capturer->is_alive = false;
 
   RendererManager renderer_manager;
   struct otc_publisher_callbacks publisher_callbacks = {0};
@@ -183,8 +237,8 @@ int main(int argc, char** argv) {
   publisher_callbacks.on_stream_destroyed = on_publisher_stream_destroyed;
   publisher_callbacks.on_error = on_publisher_error;
   
-  g_publisher = otc_publisher_new("name",
-                                  nullptr, // &(video_capturer->video_capturer_callbacks),
+  g_publisher = otc_publisher_new("opentok-linux-sdk-samples",
+                                  &(video_capturer->video_capturer_callbacks),
                                   &publisher_callbacks);
   if (g_publisher == nullptr) {
     std::cout << "Could not create OpenTok publisher successfuly" << std::endl;
@@ -213,6 +267,10 @@ int main(int argc, char** argv) {
 
   if (session != nullptr) {
     otc_session_delete(session);
+  }
+
+  if (video_capturer != nullptr) {
+    free(video_capturer);
   }
 
   otc_destroy();

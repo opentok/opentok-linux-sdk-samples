@@ -17,21 +17,21 @@ static std::atomic<bool> g_is_publishing(false);
 
 struct audio_device {
   otc_audio_device_callbacks audio_device_callbacks;
-  std::atomic<bool> is_alive;
   otk_thread_t capturer_thread;
+  std::atomic<bool> capturer_thread_exit;
 };
 
 static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
-  int16_t samples[480];
-
-  static double time = 0;
-
   struct audio_device *device = static_cast<struct audio_device *>(arg);
   if (device == nullptr) {
     otk_thread_func_return_value;
   }
-  while (device->is_alive.load()) {
-    for (int i=0; i < 480; i++) {
+
+  int16_t samples[480];
+  static double time = 0;
+
+  while (device->capturer_thread_exit.load() == false) {
+    for (int i = 0; i < 480; i++) {
       double val = (INT16_MAX  * 0.75) * cos(2.0 * M_PI * 4.0 * time / 10.0 );
       samples[i] = (int16_t)val;
       time += 10.0 / 480.0;
@@ -43,16 +43,31 @@ static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
   otk_thread_func_return_value;
 }
 
+static otc_bool audio_device_destroy_capturer(const otc_audio_device *audio_device,
+                                              void *user_data) {
+  struct audio_device *device = static_cast<struct audio_device *>(user_data);
+  if (device == nullptr) {
+    return OTC_FALSE;
+  }
+
+  device->capturer_thread_exit = true;
+  otk_thread_join(device->capturer_thread);
+
+  return OTC_TRUE;
+}
+
 static otc_bool audio_device_start_capturer(const otc_audio_device *audio_device,
                                             void *user_data) {
   struct audio_device *device = static_cast<struct audio_device *>(user_data);
   if (device == nullptr) {
     return OTC_FALSE;
   }
-  device->is_alive = true;
+
+  device->capturer_thread_exit = false;
   if (otk_thread_create(&(device->capturer_thread), &capturer_thread_start_function, (void *)device) != 0) {
     return OTC_FALSE;
   }
+
   return OTC_TRUE;
 }
 
@@ -62,18 +77,9 @@ static otc_bool audio_device_get_capture_settings(const otc_audio_device *audio_
   if (settings == nullptr) {
     return OTC_FALSE;
   }
+
   settings->number_of_channels = 1;
   settings->sampling_rate = 48000;
-  return OTC_TRUE;
-}
-
-static otc_bool audio_device_stop_capturer(const otc_audio_device *audio_device, void *user_data) {
-  struct audio_device *device = static_cast<struct audio_device *>(user_data);
-  if (device == nullptr) {
-    return OTC_FALSE;
-  }
-  device->is_alive = false;
-  otk_thread_join(device->capturer_thread);
   return OTC_TRUE;
 }
 
@@ -172,10 +178,9 @@ int main(int argc, char** argv) {
   struct audio_device *device = (struct audio_device *)malloc(sizeof(struct audio_device));
   device->audio_device_callbacks = {0};
   device->audio_device_callbacks.user_data = static_cast<void *>(device);
+  device->audio_device_callbacks.destroy_capturer = audio_device_destroy_capturer;
   device->audio_device_callbacks.start_capturer = audio_device_start_capturer;
-  device->audio_device_callbacks.stop_capturer = audio_device_stop_capturer;
   device->audio_device_callbacks.get_capture_settings = audio_device_get_capture_settings;
-  device->is_alive = false;
   otc_set_audio_device(&(device->audio_device_callbacks));
   
   struct otc_session_callbacks session_callbacks = {0};
@@ -203,8 +208,8 @@ int main(int argc, char** argv) {
   publisher_callbacks.on_stream_destroyed = on_publisher_stream_destroyed;
   publisher_callbacks.on_error = on_publisher_error;
 
-  g_publisher = otc_publisher_new("name",
-                                  nullptr, /* Use WebRTC's video capturer. */
+  g_publisher = otc_publisher_new("opentok-linux-sdk-samples",
+                                  nullptr, /* Use default video capturer. */
                                   &publisher_callbacks);
   if (g_publisher == nullptr) {
     std::cout << "Could not create OpenTok publisher successfuly" << std::endl;
@@ -233,6 +238,10 @@ int main(int argc, char** argv) {
 
   if (session != nullptr) {
     otc_session_delete(session);
+  }
+
+  if (device != nullptr) {
+    free(device);
   }
 
   otc_destroy();

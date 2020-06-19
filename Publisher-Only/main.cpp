@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
   publisher_callbacks.on_stream_destroyed = on_publisher_stream_destroyed;
   publisher_callbacks.on_error = on_publisher_error;
   
-  g_publisher = otc_publisher_new("name",
+  g_publisher = otc_publisher_new("opentok-linux-sdk-samples",
                                   nullptr, /* Use WebRTC's video capturer. */
                                   &publisher_callbacks);
   if (g_publisher == nullptr) {
