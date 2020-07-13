@@ -1,35 +1,37 @@
 # Basic Video Chat
 
-The Basic Video Chat application shows how to connect to an OpenTok session,
-publish a stream, and subscribe to a stream using the OpenTok Linux SDK.
+The Basic Video Chat application shows how to use the OpenTok Linux SDK
+to connect to an OpenTok session, publish a stream, and subscribe to a stream.
+It builds upon the [Publisher Only sample](../Publisher-Only) sample,
+adding an OpenTok stream subscriber in addition to a publisher.
 
 Upon building and running this sample application, you should be able to have
-two way audio and video communication using OpenTok.
+two-way audio and video communication using OpenTok.
 
-Note that you will need a valid TokBox account for this app. Edit the
-[main.cpp](main.cpp) file and add your API key, session id and token.
+You will need a valid [Vonage Video API](https://tokbox.com/developer/)
+account to build this app. (Note that OpenTok is now the Vonage Video API.)
 
 ## Building and running the sample app
 
-Before building the sample application you have to uncompress the OpenTok Linux
-SDK package in the [assets](../assets) folder.
+Edit the [main.cpp](main.cpp) file and add your OpenTok API key,
+an OpenTok session ID, and token for that session.
 
-Uncompress the one for the target host you are building the sample application
-for. We would uncompress
-[assets/opentok-ot-libotkit-ubuntu_x86_64-2.17.0-preview.0.tgz](../assets/opentok-ot-libotkit-ubuntu_x86_64-2.17.0-preview.0.tgz)]
-for Ubuntu x86_84.
+Before building the sample application, uncompress the OpenTok Linux SDK
+package in the [assets](../assets) folder. Uncompress the version for
+the target host of your sample application. For example, for Ubuntu ARMv7 uncompress
+the opentok-ot-libotkit-ubuntu_armv7-2.17.0-preview.0.tgz file:
 
 ```
 $ cd assets; unp opentok-ot-libotkit-ubuntu_x86_64-2.17.0-preview.0.tgz
 ```
 
-This will create a `package` folder at [assets/package](../assets/package). The
+This creates a `package` folder at [assets/package](../assets/package). The
 sample application build bits will try find the OpenTok Linux SDK header files
 and library under the `package` folder.
 
-We use [CMake](https://cmake.org) in this sample application so you have to
-install it before trying to build the sample application. There are other
-dependencies you have to install too. These are:
+This application uses [CMake](https://cmake.org). Before building the sample application,
+install it and these other dependencies:
+
   - build-essential
   - cmake
   - clang
@@ -45,13 +47,13 @@ dependencies you have to install too. These are:
   - libsdl2-dev
 
 Let's build the sample application. Since it's good practice to create a build
-folder, let's go ahead and create it in the project directory.
+folder, let's go ahead and create it in the project directory:
 
 ```
 $ mkdir Basic-Video-Chat/build
 ```
 
-Next step is to create the building bits using `cmake`.
+Next, create the building bits using `cmake`:
 
 ```
 $ cd Basic-Video-Chat/build
@@ -60,16 +62,32 @@ $ CC=clang CXX=clang++ cmake ..
 
 Note we are using `clang/clang++` compilers here.
 
-We will use `make` to build the code.
+Finally, use `make` to build the code:
 
 ```
 $ make
 ```
 
-Run the `basic_video_chat` binary once it's built.
+Then when the `basic_video_chat` binary is built, run it:
 
 ```
 $ ./basic_video_chat
 ```
 
-You can end the sample application by using the Control + C combination in the console.
+You can use the [OpenTok Playground](https://tokbox.com/developer/tools/playground/)
+to connect to the OpenTok session in a web browser, view the stream published
+by the Basic Video Chat app, and publish a stream that the app can subscribe to.
+
+To end the sample application, type Control + C in the console.
+
+## About the code
+
+To do.
+
+## Next steps
+
+The [Basic Video Chat application](../Basic-Video_Chat) sample builds upon the
+Publisher Only sample, adding an OpenTok stream subscriber in addition to a publisher. 
+
+See the [Vonage Video API developer center](https://tokbox.com/developer/)
+for more information on the OpenTok Linux SDK.

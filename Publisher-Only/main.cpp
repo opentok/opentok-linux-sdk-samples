@@ -32,6 +32,7 @@ static void uvSignalCallback(uv_signal_t* handle, int signum) {
 }
 
 int main(int argc, char* argv[]) {
+  /* Replace these with your OpenTok API key, an OpenTok session ID, and a token for the session: */
   std::string apiKey = "";
   std::string sessionId = "";
   std::string token = "";
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) {
 
   conference->leave();
 
-  std::cout << "Quiting..." << std::endl;
+  std::cout << "Quitting..." << std::endl;
 
   return EXIT_SUCCESS;
 }

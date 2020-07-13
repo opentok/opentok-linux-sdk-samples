@@ -7,6 +7,7 @@
 
 #define PUBLISHER_NAME "OpenTok Linux SDK Sample - Basic Video Chat With Server"
 
+/* Replace this with the URL for your OpenTok session credential server. See the README file: */
 #define SERVER_URL "http://localhost:8080"
 
 struct RoomInfo {
@@ -67,7 +68,7 @@ int main(int argc, char* argv[]) {
 
   conference->leave();
 
-  std::cout << "Quiting..." << std::endl;
+  std::cout << "Quitting..." << std::endl;
 
   return EXIT_SUCCESS;
 }

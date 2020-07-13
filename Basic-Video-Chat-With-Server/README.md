@@ -1,13 +1,9 @@
 # Basic Video Chat With Server
 
-The Basic Video Chat application shows how to connect to an OpenTok session,
+The Basic Video Chat With Server application shows how to connect to an OpenTok session,
 publish a stream, and subscribe to a stream using the OpenTok Linux SDK.
-
-Upon building and running this sample application, you should be able to have
-two way audio and video communication using OpenTok.
-
-This application leverages a server to create sessions, generate tokens for
-those sessions, archive (or record) sessions, and download those archives.
+It builds upon the [Basic Video Chat sample](../Basic-Video-Chat) sample
+by obtaining the OpenTok session ID and token from a server.
 
 ## Setting up the test web service
 
@@ -18,45 +14,43 @@ includes code for setting up a web service.
    PHP server set up, you can use Heroku to run a remote test server -- see [Automatic deployment
    to Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-heroku).
 
-2. After getting this web service running, edit the main.cpp file and set the value for
-   `SERVER_URL` to the URL for the web service:
+2. After getting this web service running, edit this sample application's main.cpp file,
+   and set the value for `SERVER_URL` to the URL for the web service:
 
    * If you deployed a the test web service to a local PHP server, set this to the following:
 
-```c
-#define SERVER_URL "http://localhost:8080"
-```
+      ```c
+      #define SERVER_URL "http://localhost:8080"
+      ```
+
    * If you deployed this to Heroku, set this to the following:
 
-```c
-#define SERVER_URL "YOUR-HEROKU-APP-URL"
-```
-   ***Do not add the trailing slash of the URL.***
+     ```c
+     #define SERVER_URL "YOUR-HEROKU-APP-URL"
+     ```
 
-The sample will load the OpenTok session ID, token, and API key from the web service. Also,
-the archiving sample will use the web service to start, stop, and view archives.
+   ***Important:*** Do not add the trailing slash of the URL.
+
+The sample will load the OpenTok session ID, token, and API key from the web service.
 
 ## Building and running the sample app
 
-Before building the sample application you have to uncompress the OpenTok Linux
-SDK package in the [assets](../assets) folder.
-
-Uncompress the one for the target host you are building the sample application
-for. We would uncompress
-[assets/opentok-ot-libotkit-ubuntu_x86_64-2.17.0-preview.0.tgz](../assets/opentok-ot-libotkit-ubuntu_x86_64-2.17.0-preview.0.tgz)]
-for Ubuntu x86_84.
+Before building the sample application, uncompress the OpenTok Linux SDK
+package in the [assets](../assets) folder. Uncompress the version for
+the target host of your sample application. For example, for Ubuntu ARMv7 uncompress
+the opentok-ot-libotkit-ubuntu_armv7-2.17.0-preview.0.tgz file:
 
 ```
-$ cd assets; unp opentok-ot-libotkit-ubuntu_x86_64-2.17.0-preview.0.tgz
+$ cd assets; unp opentok-ot-libotkit-ubuntu_armv7-2.17.0-preview.0.tgz
 ```
 
-This will create a `package` folder at [assets/package](../assets/package). The
+This creates a `package` folder at [assets/package](../assets/package). The
 sample application build bits will try find the OpenTok Linux SDK header files
 and library under the `package` folder.
 
-We use [CMake](https://cmake.org) in this sample application so you have to
-install it before trying to build the sample application. There are other
-dependencies you have to install too. These are:
+This application uses [CMake](https://cmake.org). Before building the sample application,
+install it and these other dependencies:
+
   - build-essential
   - cmake
   - clang
@@ -72,13 +66,13 @@ dependencies you have to install too. These are:
   - libsdl2-dev
 
 Let's build the sample application. Since it's good practice to create a build
-folder, let's go ahead and create it in the project directory.
+folder, go ahead and create it in the project directory:
 
 ```
 $ mkdir Basic-Video-Chat-With-Server/build
 ```
 
-Next step is to create the building bits using `cmake`.
+Next, create the building bits using `cmake`:
 
 ```
 $ cd Basic-Video-Chat-With-Server/build
@@ -87,16 +81,28 @@ $ CC=clang CXX=clang++ cmake ..
 
 Note we are using `clang/clang++` compilers here.
 
-We will use `make` to build the code.
+Finally, use `make` to build the code:
 
 ```
 $ make
 ```
 
-Run the `basic_video_chat_with_server` binary once it's built.
+Then when the `basic_video_chat_with_server` binary is built, run it:
 
 ```
 $ ./basic_video_chat_with_server --room linuxsdk
 ```
+You can use the [OpenTok Playground](https://tokbox.com/developer/tools/playground/)
+to connect to the OpenTok session in a web browser and view the stream published
+by the Publisher Only app.
 
-You can end the sample application by using the Control + C combination in the console.
+To end the sample application, type Control + C in the console.
+
+## About the code
+
+To do.
+
+## Next steps
+
+See the [Vonage Video API developer center](https://tokbox.com/developer/)
+for more information on the OpenTok Linux SDK.
