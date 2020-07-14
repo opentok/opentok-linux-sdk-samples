@@ -236,13 +236,12 @@ void Conference::onOpenTokSessionConnected() {
 
 ### Rendering the publisher video
 
-When the published stream is ready for a new video frame, 
-
 The renderer.h and renderer.cpp files define the Renderer and RendererManager
-C++ classes. The application use these to render video frames in the UI.
+C++ classes. The application uses these to render video frames in the user
+interface.
 
-When the publisher is ready for a new video frame, the `on_render_frame()`
-function of the `otc_publisher_cb` struct is called. The `frame` parameter of
+When a new video frame is available in the published stream, the `on_render_frame()`
+function of the `otc_publisher_cb` structure is called. The `frame` parameter of
 this function is a pointer to an `otc_video_frame` structure. When this callback
 is invoked, the `RendererManager::addFrame()` function (in renderer.cpp) is
 called:
@@ -306,6 +305,9 @@ When the libuv event loop exits, the `main()` function calls the
 * It disconnects from the OpenTok session by calling `otc_session_disconnect()`.
 
 * It deletes the `otc_psession` structure by calling `otc_session_delete()`.
+
+The `otc_publisher_delete()`, `otc_publisher_delete()`, `otc_publisher_delete()`,
+and `otc_publisher_delete()` functions are all defined in the OpenTok Linux SDK.
 
 The `Conference::leave()` function also unsubscribes from any subscribed
 streams. However, this Publisher Only sample does not subscribe to any streams.

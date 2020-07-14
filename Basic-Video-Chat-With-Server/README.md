@@ -100,7 +100,29 @@ To end the sample application, type Control + C in the console.
 
 ## About the code
 
-To do.
+See the [Publisher Only](../Publisher-Only) amd [Basic Video Chat](Basic-Video-Chat)
+samples (and their README files) to learn how to publish and subscribe to streams
+in a session.
+
+The Basic Video Chat With Server application builds upon those samples by
+obtaining the OpenTok session ID and token from a server.
+
+The `main()` function (in the main.cpp file) calls the
+`Conference::join(room, credentialServiceProviderURL)` function (defined in the
+conference.h file):
+
+```c
+conference->join(roomInfo.name_, std::string(SERVER_URL));
+```
+
+This function takes two parameters: a room name (string), which you pass in as
+a command line argument to the application, and a server URL (string) for the
+web service that provides the OpenTok session ID (based on the room) and token
+for the application to use to connect to the OpenTok session.
+
+The implementation of the `Conference::join()` function uses the
+`CredentialServiceProviderHelper` class (defined in the conference_service_provider_helper.h
+file) to load this data from the web service, using curl (in the implementation).
 
 ## Next steps
 
