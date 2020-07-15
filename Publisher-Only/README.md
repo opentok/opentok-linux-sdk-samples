@@ -4,28 +4,36 @@ The Publisher Only sample application is a very simple application meant to get
 a new developer started using the OpenTok Linux SDK.
 
 Upon building and running this sample application, you should be able to have
-one way audio and video communication using OpenTok. This sample application is
-intended to be used in a tiny single-board computer such as the Raspberry Pi.
+one-way audio and video communication using OpenTok. This sample application is
+intended to be used in a tiny single-board computer, such as the Raspberry Pi.
 
-Note that you will need a valid TokBox account for this app. Edit the
-[main.cpp](main.cpp) file and add your API key, session id and token.
+You will need a valid [Vonage Video API](https://tokbox.com/developer/)
+account to build this app. (Note that OpenTok is now the Vonage Video API.)
 
 ## Building and running the sample app
+
+Edit the [main.cpp](main.cpp) file and add your OpenTok API key,
+an OpenTok session ID, and token for that session. For test purposes,
+you can obtain a session ID and token from the project page in your
+[Vonage Video API](https://tokbox.com/developer/) account. However,
+in a production application, you will need to dynamically obtain the session
+ID and token from a web service that uses one of
+the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Let's build this sample for the Raspberry Pi device. For now the SDK build for
 this device is distributed via a direct download in the TokBox developer center
 as a `tgz` package.
 
 Before building the sample application you have to download the OpenTok Linux SDK
-package and uncompress it somewhere locally (e.g. [assets](../assets) folder
-you create).
+package and uncompress it to a local folder you create (such as /assets):
 
 ```
 $ cd assets; wget https://tokbox.com/downloads/libopentok_linux_llvm_armv7-latest
 ```
 
-Uncompress the one for the target host you are building the sample application
-for (e.g. `armv7`).
+Uncompress the OpenTok Linux SDK package in the [assets](../assets) folder.
+Uncompress the version of the SDK for the target host of your sample application.
+For example, for ARMv7 uncompress the libopentok_linux_llvm_armv7 tgz file:
 
 ```
 $ cd assets; unp libopentok_linux_llvm_armv7-2.18.0.tgz
@@ -52,9 +60,9 @@ finally add `libopentok` to the list of target link libraries.
   TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${LIBSDL2_LIBRARIES} libopentok)
 ```
 
-We use [CMake](https://cmake.org) in this sample application so you have to
-install it before trying to build the sample application. There are other
-dependencies you have to install too. These are:
+This application uses [CMake](https://cmake.org). Before building
+the sample application, install it and these other dependencies:
+
   - build-essential
   - cmake
   - clang
@@ -65,35 +73,52 @@ dependencies you have to install too. These are:
   - libpulse-dev
   - libsdl2-dev
 
-Let's build the sample application. Since it's good practice to create a build
-folder, let's go ahead and create it in the project directory.
+Next, we will build the sample application. Since it's good practice to create a build
+folder, let's go ahead and create it in the project directory:
 
 ```
 $ mkdir Publisher-Only/build
 ```
 
-Next step is to create the building bits using `cmake`.
+Next, create the building bits using `cmake`:
 
 ```
 $ cd Publisher-Only/build
-$ CC=clang CXX=clang++ \
-  cmake -DLIBOPENTOK_INCLUDE_DIRS=$(pwd)/../../assets/libopentok_linux_llvm_armv7/include \
-        -DLIBOPENTOK_LIBRARY_DIRS=$(pwd)/../../assets/libopentok_linux_llvm_armv7/lib \
-  ..
+$ CC=clang CXX=clang++ cmake ..
 ```
 
-Note we are using `clang/clang++` compilers here.
+Note we are using `clang/clang++` compilers.
 
-We will use `make` to build the code.
+Use `make` to build the code:
 
 ```
 $ make
 ```
 
-Run the `publisher_only` binary once it's built.
+When the `publisher_only` binary is built, run it:
 
 ```
 $ ./publisher_only
 ```
 
-You can end the sample application by using the Control + C combination in the console.
+You can use the [OpenTok Playground](https://tokbox.com/developer/tools/playground/)
+to connect to the OpenTok session in a web browser and view the stream published
+by the application.
+
+You can end the sample application by typing Control + C in the console.
+
+## Understanding the code
+
+This application uses the same concepts that
+the [Basic Video Chat](../Basic-Video-Chat) application uses. See the
+[Understanding the code section](../Basic-Video-Chat/README.md#understanding-the-code)
+of that application's README file (and disregard information about subscribing
+to streams) to see how the code uses the OpenTok Linux SDK.
+
+## Next steps
+
+The [Basic Video Chat application](../Basic-Video_Chat) sample builds upon the
+Publisher Only sample, adding an OpenTok stream subscriber in addition to a publisher. 
+
+See the [Vonage Video API developer center](https://tokbox.com/developer/)
+for more information on the OpenTok Linux SDK.
