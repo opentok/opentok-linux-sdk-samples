@@ -7,7 +7,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
 
 # Remove the commented out line below to enable OpenTok debug traces.
-# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
+# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCONSOLE_LOGGING")
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(LIBSDL2 REQUIRED sdl2)
