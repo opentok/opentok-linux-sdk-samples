@@ -1,4 +1,4 @@
-PROJECT(custom-video-capturer)
+PROJECT(custom_video_capturer)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
