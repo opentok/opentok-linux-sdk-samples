@@ -1,4 +1,4 @@
-PROJECT(custom-audio-device)
+PROJECT(custom_audio_device)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
