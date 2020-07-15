@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
   session = otc_session_new(API_KEY, SESSION_ID, &session_callbacks);
 
   if (session == nullptr) {
-    std::cout << "Could not create OpenTok session successfuly" << std::endl;
+    std::cout << "Could not create OpenTok session successfully" << std::endl;
     return EXIT_FAILURE;
   }
 

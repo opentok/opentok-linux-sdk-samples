@@ -119,7 +119,7 @@ int main(int argc, char** argv) {
   session = otc_session_new(API_KEY, SESSION_ID, &session_callbacks);
 
   if (session == nullptr) {
-    std::cout << "Could not create OpenTok session successfuly" << std::endl;
+    std::cout << "Could not create OpenTok session successfully" << std::endl;
     return EXIT_FAILURE;
   }
 
@@ -135,7 +135,7 @@ int main(int argc, char** argv) {
                                   nullptr, /* Use WebRTC's video capturer. */
                                   &publisher_callbacks);
   if (g_publisher == nullptr) {
-    std::cout << "Could not create OpenTok publisher successfuly" << std::endl;
+    std::cout << "Could not create OpenTok publisher successfully" << std::endl;
     otc_session_delete(session);   
     return EXIT_FAILURE;
   }
