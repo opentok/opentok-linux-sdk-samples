@@ -4,11 +4,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "config.h"
 #include "renderer.h"
-
-#define API_KEY ""
-#define SESSION_ID ""
-#define TOKEN ""
 
 #define MAX_CHAR_ARRAY_LENGHT 256
 

@@ -4,11 +4,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "config.h"
 #include "renderer.h"
-
-#define API_KEY ""
-#define SESSION_ID ""
-#define TOKEN ""
 
 static std::atomic<bool> g_is_connected(false);
 static otc_publisher *g_publisher = nullptr;

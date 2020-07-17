@@ -1,8 +1,14 @@
 Basic-Video-Chat/build
+Basic-Video-Chat/config.h
 Publisher-Only/build
+Publisher-Only/config.h
 Signaling/build
+Signaling/config.h
 Configurable-TURN-Servers/build
+Configurable-TURN-Servers/config.h
 Custom-Audio-Device/build
+Custom-Audio-Device/config.h
 Custom-Video-Capturer/build
+Custom-Video-Capturer/config.h
 assets
 *~
