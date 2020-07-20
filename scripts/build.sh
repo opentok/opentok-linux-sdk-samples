@@ -8,6 +8,7 @@ SAMPLES=(Basic-Video-Chat Publisher-Only Signaling Configurable-TURN-Servers Cus
 for sample in ${SAMPLES[@]}; do
   rm -rf ${SCRIPT_PATH}/../${sample}/build
   mkdir ${SCRIPT_PATH}/../${sample}/build
+  cp ${SCRIPT_PATH}/../common/src/config-sample.h ${SCRIPT_PATH}/../${sample}/config.h
   pushd ${SCRIPT_PATH}/../${sample}/build
   CC=clang CXX=clang++ cmake -DCI=ON ..
   ret=$?

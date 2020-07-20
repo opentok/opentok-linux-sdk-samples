@@ -14,14 +14,6 @@ account to build this app. (Note that OpenTok is now the Vonage Video API.)
 
 ## Building and running the sample app
 
-Edit the [main.cpp](main.cpp) file and add your OpenTok API key,
-an OpenTok session ID, and token for that session. For test purposes,
-you can obtain a session ID and token from the project page in your
-[Vonage Video API](https://tokbox.com/developer/) account. However,
-in a production application, you will need to dynamically obtain the session
-ID and token from a web service that uses one of
-the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
-
 This application uses [CMake](https://cmake.org). Before building
 the sample application, install it and these other dependencies:
 
@@ -70,6 +62,21 @@ in the project directory:
 ```
 $ mkdir Custom-Video-Capturer/build
 ```
+
+Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
+`Custom-Video-Capturer/`:
+
+```
+$ cp common/src/config-sample.h  Custom-Video-Capturer/
+```
+
+Edit the `config.h` file and add your OpenTok API key,
+an OpenTok session ID, and token for that session. For test purposes,
+you can obtain a session ID and token from the project page in your
+[Vonage Video API](https://tokbox.com/developer/) account. However,
+in a production application, you will need to dynamically obtain the session
+ID and token from a web service that uses one of
+the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Next, create the building bits using `cmake`:
 

@@ -10,14 +10,6 @@ account to build this app. (Note that OpenTok is now the Vonage Video API.)
 
 ## Building and running the sample app
 
-Edit the [main.cpp](main.cpp) file and add your OpenTok API key,
-an OpenTok session ID, and token for that session. For test purposes,
-you can obtain a session ID and token from the project page in your
-[Vonage Video API](https://tokbox.com/developer/) account. However,
-in a production application, you will need to dynamically obtain the session
-ID and token from a web service that uses one of
-the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
-
 This application uses [CMake](https://cmake.org). Before building
 the sample application, install it and these other dependencies:
 
@@ -64,13 +56,28 @@ Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
 ```
-$ mkdir Basic-Video-Chat/build
+$ mkdir Signaling/build
 ```
+
+Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
+`Signaling/`:
+
+```
+$ cp common/src/config-sample.h  Signaling/
+```
+
+Edit the `config.h` file and add your OpenTok API key,
+an OpenTok session ID, and token for that session. For test purposes,
+you can obtain a session ID and token from the project page in your
+[Vonage Video API](https://tokbox.com/developer/) account. However,
+in a production application, you will need to dynamically obtain the session
+ID and token from a web service that uses one of
+the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Next, create the building bits using `cmake`:
 
 ```
-$ cd Basic-Video-Chat/build
+$ cd Signaling/build
 $ CC=clang CXX=clang++ cmake ..
 ```
 
@@ -82,10 +89,10 @@ Use `make` to build the code:
 $ make
 ```
 
-When the `basic_video_chat` binary is built, run it:
+When the `signaling` binary is built, run it:
 
 ```
-$ ./basic_video_chat
+$ ./signaling
 ```
 
 You can use the [OpenTok Playground](https://tokbox.com/developer/tools/playground/)
