@@ -61,15 +61,15 @@ Once you have installed the dependencies, you can build the sample application.
 Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
-```
+```bash
 $ mkdir Configurable-TURN-Servers/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Configurable-TURN-Servers/`:
 
-```
-$ cp common/src/config-sample.h  Configurable-TURN-Servers/
+```bash
+$ cp common/src/config-sample.h  Configurable-TURN-Servers/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -91,7 +91,7 @@ for your TURN server:
 
 Next, create the building bits using `cmake`:
 
-```
+```bash
 $ cd Configurable-TURN-Servers/build
 $ CC=clang CXX=clang++ cmake ..
 ```
@@ -100,13 +100,13 @@ Note we are using `clang/clang++` compilers.
 
 Use `make` to build the code:
 
-```
+```bash
 $ make
 ```
 
 When the `configurable_turn_servers` binary is built, run it:
 
-```
+```bash
 $ ./configurable_turn_servers
 ```
 
@@ -133,7 +133,7 @@ a stream, and subscribe to a stream.
 The application initializes an `ice_config` variable of type `otc_custom_ice_config`,
 defined in the OpenTok Linux SDK:
 
-```
+```c
 struct otc_custom_ice_config ice_config;
 ice_config.num_ice_servers = 1;
 ice_config.ice_url = (char **)malloc(sizeof(char *) * 1);

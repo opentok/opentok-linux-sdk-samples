@@ -58,15 +58,15 @@ Once you have installed the dependencies, you can build the sample application.
 Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
-```
+```bash
 $ mkdir Basic-Video-Chat/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Basic-Video-Chat/`:
 
-```
-$ cp common/src/config-sample.h  Basic-Video-Chat/
+```bash
+$ cp common/src/config-sample.h  Basic-Video-Chat/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -79,7 +79,7 @@ the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Next, create the building bits using `cmake`:
 
-```
+```bash
 $ cd Basic-Video-Chat/build
 $ CC=clang CXX=clang++ cmake ..
 ```
@@ -88,13 +88,13 @@ Note we are using `clang/clang++` compilers.
 
 Use `make` to build the code:
 
-```
+```bash
 $ make
 ```
 
 When the `basic_video_chat` binary is built, run it:
 
-```
+```bash
 $ ./basic_video_chat
 ```
 
@@ -162,7 +162,7 @@ The application then calls the `otc_session_new()` function, defined in
 OpenTok Linux SDK, passing in the OpenTok API key string, the OpenTok
 session ID string, and a pointer to the `session_callbacks`structure:
 
-```
+```c
 otc_session *session = nullptr;
 session = otc_session_new(API_KEY, SESSION_ID, &session_callbacks);
 ```
@@ -409,7 +409,7 @@ Then the code calls the `otc_subscriber_new()` function to instantiate a
 `otc_subscriber` struct (defined by the OpenTok Linux SDK), representing the
 subscriber:
 
-```
+```c
 otc_subscriber *subscriber = otc_subscriber_new(stream,
                                                 &subscriber_callbacks);
 if (subscriber == nullptr) {

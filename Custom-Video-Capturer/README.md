@@ -59,15 +59,15 @@ Once you have installed the dependencies, you can build the sample application.
 Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
-```
+```bash
 $ mkdir Custom-Video-Capturer/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Custom-Video-Capturer/`:
 
-```
-$ cp common/src/config-sample.h  Custom-Video-Capturer/
+```bash
+$ cp common/src/config-sample.h  Custom-Video-Capturer/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -80,7 +80,7 @@ the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Next, create the building bits using `cmake`:
 
-```
+```bash
 $ cd Custom-Video-Capturer/build
 $ CC=clang CXX=clang++ cmake ..
 ```
@@ -89,13 +89,13 @@ Note we are using `clang/clang++` compilers.
 
 Use `make` to build the code:
 
-```
+```bash
 $ make
 ```
 
 When the `custom_video_capturer` binary is built, run it:
 
-```
+```bash
 $ ./custom_video_capturer
 ```
 
@@ -126,7 +126,7 @@ act as the video-related callbacks that the OpenTok Linux SDK invokes.
 This sample uses a `struct custom_video_capturer` user-defined struct that
 defines everything needed by the custom video capturer:
 
-```
+```c
 struct custom_video_capturer {
   const otc_video_capturer *video_capturer;
   struct otc_video_capturer_callbacks video_capturer_callbacks;
@@ -139,7 +139,7 @@ struct custom_video_capturer {
 
 The application initializes it and sets the pointers to callback functions:
 
-```
+```c
 struct custom_video_capturer *video_capturer = (struct custom_video_capturer *)malloc(sizeof(struct custom_video_capturer));
 video_capturer->video_capturer_callbacks = {0};
 video_capturer->video_capturer_callbacks.user_data = static_cast<void *>(video_capturer);
@@ -153,7 +153,7 @@ video_capturer->height = 720;
 
 The `video_capturer_start` function starts a thread in which video frames are captured:
 
-```
+```c
 static otc_bool video_capturer_start(const otc_video_capturer *capturer, void *user_data) {
   struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(user_data);
   if (video_capturer == nullptr) {
@@ -175,7 +175,7 @@ SDK, to write an ARGB32 image to the a video frame. Video frames are provided
 to the custom video capturer by calling the `otc_video_capturer_provide_frame()`
 function, defined in the OpenTok Linux SDK:
 
-```
+```c
 static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
   struct custom_video_capturer *video_capturer = static_cast<struct custom_video_capturer *>(arg);
   if (video_capturer == nullptr) {

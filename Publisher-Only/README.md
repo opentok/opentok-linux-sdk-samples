@@ -19,7 +19,7 @@ as a `tgz` package.
 Before building the sample application you have to download the OpenTok Linux SDK
 package and uncompress it to a local folder you create (such as /assets):
 
-```
+```bash
 $ cd assets; wget https://tokbox.com/downloads/libopentok_linux_llvm_armv7-latest
 ```
 
@@ -27,7 +27,7 @@ Uncompress the OpenTok Linux SDK package in the [assets](../assets) folder.
 Uncompress the version of the SDK for the target host of your sample application.
 For example, for ARMv7 uncompress the libopentok_linux_llvm_armv7 tgz file:
 
-```
+```bash
 $ cd assets; unp libopentok_linux_llvm_armv7-2.18.0.tgz
 ```
 
@@ -68,15 +68,15 @@ the sample application, install it and these other dependencies:
 Next, we will build the sample application. Since it's good practice to create a build
 folder, let's go ahead and create it in the project directory:
 
-```
+```bash
 $ mkdir Publisher-Only/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Publisher-Only/`:
 
-```
-$ cp common/src/config-sample.h  Publisher-Only/
+```bash
+$ cp common/src/config-sample.h  Publisher-Only/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -98,13 +98,13 @@ Note we are using `clang/clang++` compilers.
 
 Use `make` to build the code:
 
-```
+```bash
 $ make
 ```
 
 When the `publisher_only` binary is built, run it:
 
-```
+```bash
 $ ./publisher_only
 ```
 

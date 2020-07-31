@@ -59,15 +59,15 @@ Once you have installed the dependencies, you can build the sample application.
 Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
-```
+```bash
 $ mkdir Custom-Audio-Device/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Custom-Audio-Device/`:
 
-```
-$ cp common/src/config-sample.h  Custom-Audio-Device/
+```bash
+$ cp common/src/config-sample.h  Custom-Audio-Device/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -80,7 +80,7 @@ the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Next, create the building bits using `cmake`:
 
-```
+```bash
 $ cd Custom-Audio-Device/build
 $ CC=clang CXX=clang++ cmake ..
 ```
@@ -89,13 +89,13 @@ Note we are using `clang/clang++` compilers.
 
 Use `make` to build the code:
 
-```
+```bash
 $ make
 ```
 
 When the `custom_audio_device` binary is built, run it:
 
-```
+```bash
 $ ./custom_audio_device
 ```
 
@@ -139,7 +139,7 @@ struct audio_device {
 
 The application initializes it and sets the pointers to callback functions:
 
-```
+```c
 struct audio_device *device = (struct audio_device *)malloc(sizeof(struct audio_device));
 device->audio_device_callbacks = {0};
 device->audio_device_callbacks.user_data = static_cast<void *>(device);
@@ -151,7 +151,7 @@ device->audio_device_callbacks.get_capture_settings = audio_device_get_capture_s
 The `audio_device_start_capturer` function starts a thread
 in which audio is captured:
 
-```
+```c
 static otc_bool audio_device_start_capturer(const otc_audio_device *audio_device,
                                             void *user_data) {
   struct audio_device *device = static_cast<struct audio_device *>(user_data);
@@ -173,7 +173,7 @@ The `capturer_thread_start()` function creates an array of 480 16-bit audio samp
 `otc_audio_device_write_capture_data()` function, defined in the OpenTok Linux
 SDK:
 
-``c
+```c
 static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
   struct audio_device *device = static_cast<struct audio_device *>(arg);
   if (device == nullptr) {
@@ -219,7 +219,7 @@ The OpenToken Linux SDK calls the `get_capture_settings` callback function
 that we added to the `audio_device_callbacks` struct. In this callback, 
 we adjust configuration settings for the audio capturer:
  
-```
+```c
 static otc_bool audio_device_get_capture_settings(const otc_audio_device *audio_device,
                                                   void *user_data,
                                                   struct otc_audio_device_settings *settings) {
@@ -236,8 +236,6 @@ static otc_bool audio_device_get_capture_settings(const otc_audio_device *audio_
 The app sets the sampling rate to 48000 (samples per second). Note that the
 custom audio device implementation (described above) sets 480 audio samples
 each 10 microseconds (48,000 per second).
-
-### 
 
 ## Next steps
 

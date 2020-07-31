@@ -55,15 +55,15 @@ Once you have installed the dependencies, you can build the sample application.
 Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
-```
+```bash
 $ mkdir Signaling/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Signaling/`:
 
-```
-$ cp common/src/config-sample.h  Signaling/
+```bash
+$ cp common/src/config-sample.h  Signaling/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -76,7 +76,7 @@ the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 
 Next, create the building bits using `cmake`:
 
-```
+```bash
 $ cd Signaling/build
 $ CC=clang CXX=clang++ cmake ..
 ```
@@ -85,13 +85,13 @@ Note we are using `clang/clang++` compilers.
 
 Use `make` to build the code:
 
-```
+```bash
 $ make
 ```
 
 When the `signaling` binary is built, run it:
 
-```
+```bash
 $ ./signaling
 ```
 
