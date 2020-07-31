@@ -6,7 +6,7 @@ way of either capturing or rendering audio or both. It is important to note that
 only a custom audio device can be set at a time in an application.
 
 This sample builds upon the [Publisher Only](../Publisher-Only) sample, using
-a custom audio device that implements a custom way of capturing fake audio
+a custom audio device that implements a custom way of capturing generated audio
 samples.
 
 You will need a valid [Vonage Video API](https://tokbox.com/developer/)
@@ -116,21 +116,18 @@ The main.cpp file includes the OpenTok Linux SDK header:
 We will focus here in the custom audio device implementation. This sample builds
 upon the [Publisher Only](../Publisher-Only) sample.
 
-### Custom Audio Device implementation
+### Implementing the custom audio device
 
-#### Implementation
+A custom audio device is represented by an `otc_audio_device` struct. And an
+`otc_audio_device_callbacks` struct includes function pointers to functions
+that act as the audio-related callbacks that the OpenTok Linux SDK invokes.
 
-A custom audio device is represented by an opaque `otc_audio_device` struct and
-by a `otc_audio_device_callbacks` struct where the developer adds pointers to
-the functions that act as the callbacks that can be invoked while the application
-is running.
-
-The implementation of the custom audio device in this sample it is only about
-the capturing part. The rendering part is not implemented but its implementation
+The implementation of the custom audio device in this sample defines a custom
+audio capturer. It does not set up a custom audio renderer, but its implementation
 would be similar.
 
-In this sample we are using a `struct audio_device`  user-defined struct that
-wraps everything we need.
+This sample uses a `struct audio_device` user-defined struct that
+defines everything needed by the custom audio capturer:
 
 ```c
 struct audio_device {
@@ -140,9 +137,9 @@ struct audio_device {
 };
 ```
 
-The application initializes it and sets the pointers to the callback functions.
+The application initializes it and sets the pointers to callback functions:
 
-```c
+```
 struct audio_device *device = (struct audio_device *)malloc(sizeof(struct audio_device));
 device->audio_device_callbacks = {0};
 device->audio_device_callbacks.user_data = static_cast<void *>(device);
@@ -151,10 +148,10 @@ device->audio_device_callbacks.start_capturer = audio_device_start_capturer;
 device->audio_device_callbacks.get_capture_settings = audio_device_get_capture_settings;
 ```
 
-Let's review the `audio_device_start_capturer` function. This functions starts
-a thread in charge of implementing the capturing part where audio is captured.
+The `audio_device_start_capturer` function starts a thread
+in which audio is captured:
 
-```c
+```
 static otc_bool audio_device_start_capturer(const otc_audio_device *audio_device,
                                             void *user_data) {
   struct audio_device *device = static_cast<struct audio_device *>(user_data);
@@ -171,14 +168,12 @@ static otc_bool audio_device_start_capturer(const otc_audio_device *audio_device
 }
 ```
 
-The thread start function creates fake audio samples and writes them basically.
-It is not capturing audio samples from a given source but creating them actually.
-Wrinting audio samples just means to pass them to the SDK so they will be sent
-to other participants in the session. Audio samples are written by using
-the `otc_audio_device_write_capture_data()` function defined in the OpenTok Linux
-SDK.
+The `capturer_thread_start()` function creates an array of 480 16-bit audio samples
+(from a generated waveform) and passes the array to the
+`otc_audio_device_write_capture_data()` function, defined in the OpenTok Linux
+SDK:
 
-```c
+``c
 static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
   struct audio_device *device = static_cast<struct audio_device *>(arg);
   if (device == nullptr) {
@@ -202,20 +197,53 @@ static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
 }
 ```
 
-#### How to set it
+The `otc_audio_device_write_capture_data()` function adds the audio byte
+array to the audio buffer that will be used for audio in the published stream.
+
+### Setting the audio device to be used by the application
 
 Once the application initializes the `struct audio_device` struct and sets the
-pointers to the callback functions the custom audio device can be set by
+pointers to the callback functions, the custom audio device can be set by
 using the `otc_set_audio_device()` function defined in the OpenTok Linux SDK.
 
 ```c
   otc_set_audio_device(&(device->audio_device_callbacks));
 ```
 
-As you see the function take a pointer to the `otc_audio_device_callbacks audio_device_callbacks`
-member in the `struct audio_device` struct.
+The function takes a pointer to the `audio_device_callbacks` struct
+(of type `otc_audio_device_callbacks`) defined in the previous section.
+
+### Configuring the audio device
+
+The OpenToken Linux SDK calls the `get_capture_settings` callback function
+that we added to the `audio_device_callbacks` struct. In this callback, 
+we adjust configuration settings for the audio capturer:
+ 
+```
+static otc_bool audio_device_get_capture_settings(const otc_audio_device *audio_device,
+                                                  void *user_data,
+                                                  struct otc_audio_device_settings *settings) {
+  if (settings == nullptr) {
+    return OTC_FALSE;
+  }
+
+  settings->number_of_channels = 1;
+  settings->sampling_rate = 48000;
+  return OTC_TRUE;
+}
+```
+
+The app sets the sampling rate to 48000 (samples per second). Note that the
+custom audio device implementation (described above) sets 480 audio samples
+each 10 microseconds (48,000 per second).
+
+### 
 
 ## Next steps
 
 See the [Vonage Video API developer center](https://tokbox.com/developer/)
 for more information on the OpenTok Linux SDK.
+
+See the [Adjusting audio and video -- Linux](https://tokbox.com/developer/guides/audio-video/linux)
+developer for more information on setting custom audio captures and renderers,
+as well as other audio options, using the OpenTok Linux SDK.

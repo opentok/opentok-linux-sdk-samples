@@ -7,7 +7,7 @@
 #include "config.h"
 #include "renderer.h"
 
-#define MAX_CHAR_ARRAY_LENGHT 256
+#define MAX_CHAR_ARRAY_LENGTH 256
 
 static std::atomic<bool> g_is_connected(false);
 
@@ -81,16 +81,16 @@ int main(int argc, char** argv) {
   struct otc_custom_ice_config ice_config;
   ice_config.num_ice_servers = 1;
   ice_config.ice_url = (char **)malloc(sizeof(char *) * 1);
-  ice_config.ice_url[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGHT);
-  memset(ice_config.ice_url[0], '\0',  MAX_CHAR_ARRAY_LENGHT);
+  ice_config.ice_url[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGTH);
+  memset(ice_config.ice_url[0], '\0',  MAX_CHAR_ARRAY_LENGTH);
   strcpy(ice_config.ice_url[0], "<ICE_SERVER_URL>");
   ice_config.ice_user = (char **)malloc(sizeof(char *) * 1);
-  ice_config.ice_user[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGHT);
-  memset(ice_config.ice_user[0], '\0',  MAX_CHAR_ARRAY_LENGHT);
+  ice_config.ice_user[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGTH);
+  memset(ice_config.ice_user[0], '\0',  MAX_CHAR_ARRAY_LENGTH);
   strcpy(ice_config.ice_user[0], "<ICE_SERVER_USER>");
   ice_config.ice_credential = (char **)malloc(sizeof(char *) * 1);
-  ice_config.ice_credential[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGHT);
-  memset(ice_config.ice_credential[0], '\0',  MAX_CHAR_ARRAY_LENGHT);
+  ice_config.ice_credential[0] = (char *)malloc(sizeof(char) * MAX_CHAR_ARRAY_LENGTH);
+  memset(ice_config.ice_credential[0], '\0',  MAX_CHAR_ARRAY_LENGTH);
   strcpy(ice_config.ice_credential[0], "<ICE_SERVER_CREDENTIAL>");
   ice_config.force_turn = OTC_TRUE;
   ice_config.use_custom_turn_only = OTC_FALSE;

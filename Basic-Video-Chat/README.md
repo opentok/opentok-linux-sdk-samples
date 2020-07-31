@@ -136,7 +136,7 @@ a pointer to a `renderer_manager` object (described later).
 The other members of the `otc_session_callbacks` structure are callback functions that
 are called when events related to the OpenTok session occur:
 
-* `on_connected` -- Invoked after the `otc_session_connect()` function (see below)
+* `on_connected` -- Invoked when the `otc_session_connect()` function (see below)
   successfully connects the instance to an OpenTok session.
 
 * `on_connection_created` -- Invoked when another client connects to the
@@ -146,14 +146,14 @@ are called when events related to the OpenTok session occur:
 * `on_connection_dropped` -- Invoked when another client disconnects from
    the OpenTok session.
 
-* `on_stream_received` -- Invoked when a there is a new stream in the OpenTok session
+* `on_stream_received` -- Invoked when there is a new stream in the OpenTok session
   (when another client publishes a stream to the session).
 
 * `on_stream_dropped` -- Invoked when another client's stream is dropped from
   the OpenTok session. This can happen when the client stops publishing the stream
   or if the client's network connection drops.
 
-  * `on_disconnected` -- Invoked when a the application disconnects from the
+  * `on_disconnected` -- Invoked when the application disconnects from the
     OpenTok session.
 
   * `on_error` -- Invoked when an error occurs in connecting to the session.
@@ -230,7 +230,7 @@ if (g_publisher == nullptr) {
 
 ### Connecting to an OpenTok session
 
-After connecting to the session and creating a publisher instance,
+After creating the session and publisher instances,
 the application calls the `otc_session_connect()` function, defined in 
 the OpenTok Linux SDK:
 
@@ -246,13 +246,10 @@ This function connects the client to the OpenTok session. It takes two arguments
 
 ### Publishing a stream to the session
 
-Upon successful connection, the `otc_session_callbacks.on_connected` callback function
-is invoked, and the application publishes a stream to the session.
-
 When the application connects to the OpenTok session, the
 `on_session_connected()` callback function is called (see the previous
-section), and it calls the `otc_session_publish()` function, defined
-by the OpenTok Linux SDK, to publish a stream to the OpenTok session:
+section). In response to this, the application calls the `otc_session_publish()`
+function, defined in the OpenTok Linux SDK, to publish a stream to the OpenTok session:
 
 ```c
 static void on_session_connected(otc_session *session, void *user_data) {
@@ -270,7 +267,7 @@ static void on_session_connected(otc_session *session, void *user_data) {
 }
 ```
 
-the `otc_session_publish()` function takes two arguments:
+The `otc_session_publish()` function takes two arguments:
 
 * The `otc_session` structure.
 * The `otc_publisher` structure.
