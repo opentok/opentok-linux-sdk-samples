@@ -26,9 +26,10 @@ the sample application, install it and these other dependencies:
   - libpulse-dev
   - libsdl2-dev
 
-The OpenTok Linux SDK is available as a Debian package. We maintain our own
-Debian repository on Bintray. Run the following commands to install packages
-from it.
+The OpenTok Linux SDK for x86_64 (adm64) architecture is available as a Debian
+package. For Debian we support Debian 9 (strech) and 10 (buster). We maintain
+our own Debian repository on Bintray. For Debian 10, follow these steps
+to install the packages from our repository.
 
 * Add a new entry to your `/etc/apt/sources.list` file.
 
