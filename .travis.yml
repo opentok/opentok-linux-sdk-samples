@@ -1,13 +1,13 @@
 language: cpp
+services:
+  - docker
 dist: xenial
-compiler:
-- clang++
 os:
 - linux
 before_install:
-- if [ $TRAVIS_OS_NAME == linux ]; then ./scripts/dependencies.sh; fi
+  - docker build -t opentok/debian_buster:1.0 -f Dockerfile .
 script:
-- if [ $TRAVIS_OS_NAME == linux ]; then ./scripts/build.sh; fi
+  - docker run --rm -v $(pwd):/samples opentok/debian_buster:1.0
 branches:
   only:
   - master
