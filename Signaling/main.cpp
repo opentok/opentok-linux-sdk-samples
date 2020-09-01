@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "config.h"
+#include "config-sample.h"
 #include "renderer.h"
 
 static std::atomic<bool> g_is_connected(false);

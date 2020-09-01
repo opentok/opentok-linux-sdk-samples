@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "config.h"
+#include "config-sample.h"
 #include "otk_thread.h"
 #include "renderer.h"
 

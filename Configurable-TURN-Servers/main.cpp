@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "config.h"
+#include "config-sample.h"
 #include "renderer.h"
 
 #define MAX_CHAR_ARRAY_LENGTH 256
