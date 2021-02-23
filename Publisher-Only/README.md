@@ -28,7 +28,7 @@ Uncompress the version of the SDK for the target host of your sample application
 For example, for ARMv7 uncompress the libopentok_linux_llvm_armv7 tgz file:
 
 ```bash
-$ cd assets; unp libopentok_linux_llvm_armv7-2.18.0.tgz
+$ cd assets; unp libopentok_linux_llvm_armv7-2.19.0.tgz
 ```
 
 This will create a `libopentok_linux_llvm_armv7` folder at
