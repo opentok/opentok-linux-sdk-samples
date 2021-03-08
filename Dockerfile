@@ -22,6 +22,7 @@ RUN apt-get update \
      libc++-dev \
      libc++abi-dev \
      libsdl2-dev \
+     libopencv-dev \
      libopentok-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

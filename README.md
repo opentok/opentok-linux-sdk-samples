@@ -59,6 +59,12 @@ renderer. While most applications will work fine with the default capturer
 and renderer, so you won't need to implement a custom video driver. However,
 if you need to add custom effects, then this is where you should start.
 
+### [RTSP Stream Video Capturer](RTSP-Stream-Video-Capturer)
+
+This sample application shows how to build a simple video capturer which captures
+video frames from a live RTSP video stream. A publisher using this video
+capturer pipes the RTSP stream into a OpenTok session.
+
 ## Development and Contributing
 
 Interested in contributing? We :heart: pull requests! See the

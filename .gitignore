@@ -10,5 +10,7 @@ Custom-Audio-Device/build
 Custom-Audio-Device/config.h
 Custom-Video-Capturer/build
 Custom-Video-Capturer/config.h
+RTSP-Stream-Video-Capturer/build
+RTSP-Stream-Video-Capturer/config.h
 assets
 *~
