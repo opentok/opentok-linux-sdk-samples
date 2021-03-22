@@ -2,7 +2,7 @@
 
 <img src="https://assets.tokbox.com/img/vonage/Vonage_VideoAPI_black.svg" height="48px" alt="Tokbox is now known as Vonage" />
 
-[![Build Status](https://travis-ci.org/opentok/opentok-linux-sdk-samples.svg?branch=master)](https://travis-ci.org/opentok/opentok-linux-sdk-samples)
+[![Build Status](https://travis-ci.org/opentok/opentok-linux-sdk-samples.svg?branch=main)](https://travis-ci.org/opentok/opentok-linux-sdk-samples)
 
 This repository is meant to provide some examples for you to better understand
 the features of the OpenTok Linux SDK.
