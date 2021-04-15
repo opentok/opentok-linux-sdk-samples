@@ -11,7 +11,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -s https://packagecloud.io/install/repositories/tokbox/debian/script.deb.sh | sudo bash
+RUN curl -s https://packagecloud.io/install/repositories/tokbox/debian/script.deb.sh | bash
 
 RUN apt-get update \
   && apt-get install -y \
