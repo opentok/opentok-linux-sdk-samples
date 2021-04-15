@@ -31,25 +31,13 @@ the sample application, install it and these other dependencies:
 
 The OpenTok Linux SDK for x86_64 (adm64) architecture is available as a Debian
 package. For Debian we support Debian 9 (strech) and 10 (buster). We maintain
-our own Debian repository on Bintray. For Debian 10, follow these steps
+our own Debian repository on packagecloud. For Debian 10, follow these steps
 to install the packages from our repository.
 
-* Add a new entry to your `/etc/apt/sources.list` file.
+* Add packagecloud repository:
 
 ```bash
-echo "deb https://dl.bintray.com/tokbox/debian buster main" | sudo tee -a /etc/apt/sources.list
-```
-
-* Add Bintray's GPG Key.
-
-```bash
-wget -O- -q https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
-```
-
-* Resynchronize the package index files from their sources.
-
-```bash
-sudo apt-get update
+curl -s https://packagecloud.io/install/repositories/tokbox/debian/script.deb.sh | sudo bash
 ```
 
 * Install the OpenTok Linux SDK packages.

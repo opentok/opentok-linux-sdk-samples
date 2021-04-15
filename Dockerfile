@@ -7,11 +7,11 @@ RUN apt-get update \
        ca-certificates \
        wget \
        gnupg \
+       curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo "deb https://dl.bintray.com/tokbox/debian buster main" | tee -a /etc/apt/sources.list
-RUN wget -O- -q https://bintray.com/user/downloadSubjectPublicKey?username=bintray | apt-key add -
+RUN curl -s https://packagecloud.io/install/repositories/tokbox/debian/script.deb.sh | sudo bash
 
 RUN apt-get update \
   && apt-get install -y \
