@@ -10,4 +10,4 @@ script:
   - docker run --rm -v $(pwd):/samples opentok/debian_buster:1.0
 branches:
   only:
-  - master
+  - main
