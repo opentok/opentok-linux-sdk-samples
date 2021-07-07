@@ -3,6 +3,8 @@
 The Basic Video Chat application shows how to connect to an OpenTok session,
 publish a stream, and subscribe to a stream using the OpenTok Linux SDK.
 
+BOO!
+
 It implements a simple video call application with several clients.
 
 Upon building and running this sample application, you should be able to have
