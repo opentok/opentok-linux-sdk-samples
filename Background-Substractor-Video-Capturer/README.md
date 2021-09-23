@@ -84,7 +84,7 @@ Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Background-Substractor-Video-Capturer/`:
 
 ```bash
-$ cp common/src/config-sample.h  RTSP-Stream-Video-Capturer/config.h
+$ cp common/src/config-sample.h  Background-Substractor-Video-Capturer/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
