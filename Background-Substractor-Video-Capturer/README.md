@@ -77,14 +77,14 @@ Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
 ```bash
-$ mkdir Background-Substractor-Video-Capturer/build
+mkdir Background-Substractor-Video-Capturer/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
 `Background-Substractor-Video-Capturer/`:
 
 ```bash
-$ cp common/src/config-sample.h  Background-Substractor-Video-Capturer/config.h
+cp common/src/config-sample.h  Background-Substractor-Video-Capturer/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -98,8 +98,8 @@ the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 Next, create the building bits using `cmake`:
 
 ```bash
-$ cd Background-Substractor-Video-Capturer/build
-$ CC=clang CXX=clang++ cmake ..
+cd Background-Substractor-Video-Capturer/build
+CC=clang CXX=clang++ cmake ..
 ```
 
 Note we are using `clang/clang++` compilers.
@@ -107,13 +107,13 @@ Note we are using `clang/clang++` compilers.
 Use `make` to build the code:
 
 ```bash
-$ make
+make
 ```
 
 When the `background_substractor_video_capturer` binary is built, run it:
 
 ```bash
-$ ./background_substractor_video_capturer
+./background_substractor_video_capturer
 ```
 
 You can use the [OpenTok Playground](https://tokbox.com/developer/tools/playground/)
