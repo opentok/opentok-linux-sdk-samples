@@ -65,6 +65,14 @@ This sample application shows how to build a simple video capturer which capture
 video frames from a live RTSP video stream. A publisher using this video
 capturer pipes the RTSP stream into a OpenTok session.
 
+### [Background Substractor Video Capturer](Background-Substractor-Video-Capturer)
+
+This sample application shows how to use a video capturer being used by a publisher
+in your application. It is important to note that a custom video capturer always
+belongs to a given publisher. The video capturer captures video frames from the default
+video camera, removes its background and provides them to the SDK so they are sent to
+participants in the session.
+
 ## Development and Contributing
 
 Interested in contributing? We :heart: pull requests! See the
