@@ -45,18 +45,17 @@ static otk_thread_func_return_type capturer_thread_start_function(void *arg) {
   cv::Mat opencv_frame;
   while((video_capturer->capturer_thread_exit.load() == false) &&
         opencv_video_capture.read(opencv_frame)) {
-    cv::cvtColor(opencv_frame, opencv_frame, cv::COLOR_BGR2YUV);
-    std::vector<cv::Mat> yuv;
-    cv::split(opencv_frame, yuv);
-    otc_video_frame *otc_frame = otc_video_frame_new_I420(
-        video_capturer->width,
-        video_capturer->height,
-        yuv[0].ptr<uchar>(),
-        yuv[0].step[0],
-        yuv[1].ptr<uchar>(),
-        yuv[1].step[0],
-        yuv[2].ptr<uchar>(),
-        yuv[2].step[0]);
+    cv::cvtColor(opencv_frame, opencv_frame, cv::COLOR_BGR2RGB);
+    const uchar* planes[1] {opencv_frame.ptr<uchar>()};
+    int strides[1] {static_cast<int>(opencv_frame.step[0])};
+
+    otc_video_frame *otc_frame = otc_video_frame_new_from_planes(
+        OTC_VIDEO_FRAME_FORMAT_RGB24,
+	video_capturer->width,
+	video_capturer->height,
+	planes,
+	strides);
+ 
     otc_video_capturer_provide_frame(video_capturer->video_capturer, 0, otc_frame);
     if (otc_frame != nullptr) {
       otc_video_frame_delete(otc_frame);
@@ -251,9 +250,9 @@ int main(int argc, char** argv) {
     return EXIT_FAILURE;
   }
   video_capturer->format = OTC_VIDEO_FRAME_FORMAT_YUV420P;
-  video_capturer->width = static_cast<int>(opencv_video_capture.get(CV_CAP_PROP_FRAME_WIDTH));
-  video_capturer->height = static_cast<int>(opencv_video_capture.get(CV_CAP_PROP_FRAME_HEIGHT));
-  video_capturer->fps = static_cast<int>(opencv_video_capture.get(CV_CAP_PROP_FRAME_WIDTH));
+  video_capturer->width = static_cast<int>(opencv_video_capture.get(cv::CAP_PROP_FRAME_WIDTH));
+  video_capturer->height = static_cast<int>(opencv_video_capture.get(cv::CAP_PROP_FRAME_HEIGHT));
+  video_capturer->fps = static_cast<int>(opencv_video_capture.get(cv::CAP_PROP_FRAME_WIDTH));
   opencv_video_capture.release();
 
   RendererManager renderer_manager;

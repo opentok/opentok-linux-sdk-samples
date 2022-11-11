@@ -22,9 +22,8 @@ OpenTok Linux SDK.
 #### On Debian-based Linuxes
 
 The OpenTok Linux SDK for x86_64 is available as a Debian
-package. For Debian we support Debian 9 (Strech) and 10 (Buster). We maintain
-our own Debian repository on packagecloud. For Debian 10, follow these steps
-to install the packages from our repository.
+package. We maintain our own Debian repository on packagecloud. 
+For Debian 11, follow these steps to install the packages from our repository.
 
 * Add packagecloud repository:
 
@@ -68,6 +67,8 @@ sudo dnf groupinstall "Development Tools" "Development Libraries"
 sudo dnf install SDL2-devel clang pkg-config libcxx-devel libcxxabi-devel cmake opencv-devel
 ```
 
+Note that this sample app has been tested to work with OpenCV 4.5.
+
 ## Building and running the sample app
 
 
@@ -99,8 +100,15 @@ Edit the `main.cpp` file and the RTSP URL you want to capture video frames from.
 #define DEFAULT_RTSP_SERVER_URL "<My RTSP URL>"
 ```
 
-If you do not have a RTSP camera avaible you can use any RTSP server locally (e.g.
-https://github.com/mpromonet/v4l2rtspserver).
+If you do not have a RTSP camera avaible you can install VLC to run a RTSP server. For example,
+
+```
+vlc -vvv SampleVideo_720x480_20mb.mp4 --sout '#rtp{dst=127.0.0.1,port=1234,sdp=rtsp://127.0.0.1:8080/test.sdp}'
+```
+and then the RTSP URL would be
+```
+#define DEFAULT_RTSP_SERVER_URL "rtsp://127.0.0.1:8080/test.sdp"
+```
 
 Next, create the building bits using `cmake`:
 
