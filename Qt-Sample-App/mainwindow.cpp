@@ -6,6 +6,9 @@
 constexpr const char *kApiKey = "";
 constexpr const char *kSession = "";
 constexpr const char *kToken = "";
+constexpr const char *kConnecting = "Connecting";
+constexpr const char *kConnect = "Connect";
+constexpr const char *kDisconnect = "Disconnect";
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -38,6 +41,7 @@ void MainWindow::connectSession()
     if (findChild<opentok_qt::Session *>() == nullptr) {
         new opentok_qt::Session(this, ui->lineEdit->text(), ui->lineEdit_2->text(), ui->lineEdit_3->text());
         ui->pushButton->setDisabled(true);
+        ui->pushButton->setText(kConnecting);
     } else {
         destroySession();
     }
@@ -52,14 +56,23 @@ void MainWindow::destroySession()
 
 void MainWindow::sessionConnected()
 {
-    ui->pushButton->setText("Disconnect");
+    ui->pushButton->setText(kDisconnect);
     ui->pushButton->setEnabled(true);
+}
+
+void MainWindow::sessionError()
+{
+    if (ui->pushButton->text() == kConnecting) {
+        ui->pushButton->setText(kConnect);
+        ui->pushButton->setEnabled(true);
+        destroySession();
+    }
 }
 
 void MainWindow::sessionDisconnected()
 {
     destroySession();
-    ui->pushButton->setText("Connect");
+    ui->pushButton->setText(kConnect);
     ui->pushButton->setEnabled(true);
 }
 

@@ -35,6 +35,9 @@ public:
         // Notify main window when session is disconnected
         connect(this, &Session::sessionDisconnected, parent, &MainWindow::sessionDisconnected);
 
+        // Notify main window when there is an error
+        connect(this, &Session::sessionError, parent, &MainWindow::sessionError);
+
         // Logging messages
         connect(this, &Session::message, parent, &MainWindow::addMessage);
 
@@ -107,6 +110,7 @@ public:
     {
         const auto self = static_cast<Session *>(user_data);
         emit self->message(QString("Session error ") + error_string);
+        emit self->sessionError();
     }
 
     void init_session(const QString &apikey, const QString &sessionid, const QString &token)
@@ -139,14 +143,15 @@ private:
     std::multimap<std::string, std::unique_ptr<Participant>> participants;
 
 signals:
-    void newPartipant(Participant *);
+    void newPartipant(opentok_qt::Participant *);
     void removeParticipant(QString id);
     void sessionConnected();
     void sessionDisconnected();
     void message(QString message);
+    void sessionError();
 
 private slots:
-    void participantConnected(Participant *part)
+    void participantConnected(opentok_qt::Participant *part)
     {
         emit newPartipant(static_cast<Participant *>(part));
     }

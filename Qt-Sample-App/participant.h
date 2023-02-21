@@ -16,7 +16,7 @@ public:
     virtual QString getId() = 0;
 signals:
     void frame(std::shared_ptr<const otc_video_frame>);
-    void connected(Participant *);
+    void connected(opentok_qt::Participant *);
 };
 }
 #endif // PARTICIPANT_H

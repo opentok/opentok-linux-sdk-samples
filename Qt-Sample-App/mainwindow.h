@@ -56,6 +56,8 @@ public slots:
 
     void sessionDisconnected();
 
+    void sessionError();
+
     void newSessionWindow();
 
     void addMessage(QString message);
