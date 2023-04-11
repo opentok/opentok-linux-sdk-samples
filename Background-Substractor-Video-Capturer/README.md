@@ -23,7 +23,7 @@ OpenTok Linux SDK.
 #### On Debian-based Linuxes
 
 The OpenTok Linux SDK for x86_64 is available as a Debian
-package. For Debian we support Debian 11 (Bulleye). We maintain
+package. For Debian we support Debian 11 (Bullseye). We maintain
 our own Debian repository on packagecloud. Follow these steps
 to install the packages from our repository.
 
