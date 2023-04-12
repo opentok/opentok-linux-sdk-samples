@@ -1,6 +1,6 @@
-FROM debian:buster
+FROM debian:bullseye
 
-RUN echo "deb http://security.debian.org/ buster/updates main" | tee -a /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ bullseye-security main" | tee -a /etc/apt/sources.list
 
 RUN apt-get update \
     && apt-get -yqqf --no-install-recommends install \

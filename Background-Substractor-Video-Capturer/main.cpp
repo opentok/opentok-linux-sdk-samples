@@ -272,9 +272,9 @@ int main(int argc, char** argv) {
     return EXIT_FAILURE;
   }
   video_capturer->format = OTC_VIDEO_FRAME_FORMAT_YUV420P;
-  video_capturer->width = static_cast<int>(opencv_video_capture.get(CV_CAP_PROP_FRAME_WIDTH));
-  video_capturer->height = static_cast<int>(opencv_video_capture.get(CV_CAP_PROP_FRAME_HEIGHT));
-  video_capturer->fps = static_cast<int>(opencv_video_capture.get(CV_CAP_PROP_FRAME_WIDTH));
+  video_capturer->width = static_cast<int>(opencv_video_capture.get(cv::CAP_PROP_FRAME_WIDTH));
+  video_capturer->height = static_cast<int>(opencv_video_capture.get(cv::CAP_PROP_FRAME_HEIGHT));
+  video_capturer->fps = static_cast<int>(opencv_video_capture.get(cv::CAP_PROP_FRAME_WIDTH));
   opencv_video_capture.release();
 
   RendererManager renderer_manager;

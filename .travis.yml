@@ -5,9 +5,9 @@ dist: xenial
 os:
 - linux
 before_install:
-  - docker build -t opentok/debian_buster:1.0 -f Dockerfile .
+  - docker build -t opentok/debian_bullseye:1.0 -f Dockerfile .
 script:
-  - docker run --rm -v $(pwd):/samples opentok/debian_buster:1.0
+  - docker run --rm -v $(pwd):/samples opentok/debian_bullseye:1.0
 branches:
   only:
   - main
