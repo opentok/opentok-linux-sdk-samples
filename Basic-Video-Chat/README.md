@@ -21,7 +21,7 @@ OpenTok Linux SDK.
 #### On Debian-based Linuxes
 
 The OpenTok Linux SDK for x86_64 is available as a Debian
-package. For Debian we support Debian 11 (Bullseye). We maintain
+package. For Debian we support Debian 12 (Bookworm). We maintain
 our own Debian repository on packagecloud. Follow these steps
 to install the packages from our repository.
 
@@ -44,8 +44,8 @@ and extract it and set the `LIBOPENTOK_PATH` environment variable to point to th
 For example:
 
 ```bash
-wget https://tokbox.com/downloads/libopentok_linux_llvm_x86_64-2.25.0
-tar xvf libopentok_linux_llvm_x86_64-2.25.0
+wget https://tokbox.com/downloads/libopentok_linux_llvm_x86_64-2.26.1
+tar xvf libopentok_linux_llvm_x86_64-2.26.1
 export LIBOPENTOK_PATH=<path_to_SDK>
 ```
 
