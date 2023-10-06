@@ -1,7 +1,7 @@
 language: cpp
 services:
   - docker
-dist: xenial
+dist: jammy
 os:
 - linux
 before_install:
