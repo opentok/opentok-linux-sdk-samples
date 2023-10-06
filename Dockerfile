@@ -1,6 +1,6 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
-RUN echo "deb http://security.debian.org/ bullseye-security main" | tee -a /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ bookworm-security main" | tee -a /etc/apt/sources.list
 
 RUN apt-get update \
     && apt-get -yqqf --no-install-recommends install \
