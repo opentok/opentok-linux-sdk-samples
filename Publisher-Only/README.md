@@ -20,7 +20,7 @@ Before building the sample application you have to download the OpenTok Linux SD
 package and uncompress it to a local folder you create (such as /assets):
 
 ```bash
-$ cd assets; wget https://tokbox.com/downloads/libopentok_linux_llvm_armv7-2.27.0
+$ cd assets; wget https://tokbox.com/downloads/libopentok_linux_llvm_armv7-2.27.1
 ```
 
 Uncompress the OpenTok Linux SDK package in the [assets](../assets) folder.
