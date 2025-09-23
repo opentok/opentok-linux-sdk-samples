@@ -46,8 +46,8 @@ and extract it and set the `LIBOPENTOK_PATH` environment variable to point to th
 For example:
 
 ```bash
-wget https://tokbox.com/downloads/libopentok_linux_llvm_x86_64-2.30.1
-tar xvf libopentok_linux_llvm_x86_64-2.30.1
+wget https://tokbox.com/downloads/libopentok_linux_llvm_x86_64-2.31.0
+tar xvf libopentok_linux_llvm_x86_64-2.31.0
 export LIBOPENTOK_PATH=<path_to_SDK>
 ```
 
