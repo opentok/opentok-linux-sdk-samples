@@ -46,7 +46,7 @@ For example:
 
 ```bash
 wget https://tokbox.com/downloads/libopentok_linux_llvm_x86_64-2.31.1
-tar xvf libopentok_linux_llvm_x86_64-2.31.0
+tar xvf libopentok_linux_llvm_x86_64-2.31.1
 export LIBOPENTOK_PATH=<path_to_SDK>
 ```
 
