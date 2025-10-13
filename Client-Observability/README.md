@@ -69,14 +69,14 @@ Since it's good practice to create a build folder, let's go ahead and create it
 in the project directory:
 
 ```bash
-$ mkdir Basic-Video-Chat/build
+$ mkdir Client-Observability/build
 ```
 
 Copy the [config-sample.h](../common/src/config-sample.h) file as `config.h` at
-`Basic-Video-Chat/`:
+`Client-Observability/`:
 
 ```bash
-$ cp common/src/config-sample.h  Basic-Video-Chat/config.h
+$ cp common/src/config-sample.h  Client-Observability/config.h
 ```
 
 Edit the `config.h` file and add your OpenTok API key,
@@ -90,7 +90,7 @@ the [Vonage Video API server SDKs](https://tokbox.com/developer/sdks/server/).
 Next, create the building bits using `cmake`:
 
 ```bash
-$ cd Basic-Video-Chat/build
+$ cd Client-Observability/build
 $ CC=clang CXX=clang++ cmake ..
 ```
 
@@ -102,15 +102,15 @@ Use `make` to build the code:
 $ make
 ```
 
-When the `basic_video_chat` binary is built, run it:
+When the `client_observability` binary is built, run it:
 
 ```bash
-$ ./basic_video_chat
+$ ./client_observability
 ```
 
 You can use the [OpenTok Playground](https://tokbox.com/developer/tools/playground/)
 to connect to the OpenTok session in a web browser, view the stream published
-by the Basic Video Chat app, and publish a stream that the app can subscribe to.
+by the Client Observability app, and publish a stream that the app can subscribe to.
 
 You can end the sample application by typing Control + C in the console.
 
