@@ -1,3 +1,5 @@
+:warning: **This repository has been deprecated in favour of the [Vonage Linux samples](https://github.com/Vonage/vonage-linux-sdk-samples)** :warning:
+
 # OpenTok Linux SDK Samples
 
 <img src="https://assets.tokbox.com/img/vonage/Vonage_VideoAPI_black.svg" height="48px" alt="Tokbox is now known as Vonage" />
